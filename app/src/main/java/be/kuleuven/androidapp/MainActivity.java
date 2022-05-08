@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnLog;
+    private TextView username;
+    private TextView password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
