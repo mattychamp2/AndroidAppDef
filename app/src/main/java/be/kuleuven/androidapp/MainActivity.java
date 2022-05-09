@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView password;
     private RequestQueue requestQueue;
     private TextView txtResponse;
-    //sdsd
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public void theRightWayJSON( View v )
     {
         requestQueue = Volley.newRequestQueue( this );
-        String requestURL = "https://studev.groept.be/api/a20sd313/peopleWithEmail";
+        String requestURL = "https://studev.groept.be/api/a21pt115/customerList";
 
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
 
@@ -48,13 +48,22 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response)
                     {
                         try {
-                            String responseString = "";
+                            //String responseString = "";
+
                             for( int i = 0; i < response.length(); i++ )
                             {
                                 JSONObject curObject = response.getJSONObject( i );
-                                responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
+                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
+                                String givenUsername= username.getText().toString();
+                                String dbUsername=curObject.getString("Username");
+                                String givenPassword = password.getText().toString();
+                                String dbPassword = curObject.getString("Password");
+
+                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
+
+                                }
                             }
-                            txtResponse.setText(responseString);
+                            //txtResponse.setText(responseString);
                         }
                         catch( JSONException e )
                         {
