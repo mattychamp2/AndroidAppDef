@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:ems="10"
-        android:hint="UserName"
+        android:hint="Username"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/txtPass"
@@ -61,6 +61,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
+
+    <Button
+        android:id="@+id/createAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:onClick="createAccBtn"
+        android:text="Create account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLog" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

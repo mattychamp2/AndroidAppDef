@@ -98,7 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnLog_Clicked(View caller) {
         Intent intent = new Intent(this, ShopScreen.class);
+        startActivity(intent);
+    }
 
+    public void createAccBtn(View caller){
+        Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
     }
 }
