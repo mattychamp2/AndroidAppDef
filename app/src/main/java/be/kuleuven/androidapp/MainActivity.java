@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnLog = (Button) findViewById(R.id.btnLog);
     }
 
-    public void theRightWayJSON( View v )
+    public void login( View v )
     {
         requestQueue = Volley.newRequestQueue( this );
         String requestURL = "https://studev.groept.be/api/a21pt115/customerList";
@@ -50,24 +51,65 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             //String responseString = "";
 
-                            for( int i = 0; i < response.length(); i++ )
-                            {
+                            boolean login = false;
+                            int i=0;
+                            while (!login) {
                                 JSONObject curObject = response.getJSONObject( i );
                                 //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
                                 String givenUsername= username.getText().toString();
                                 String dbUsername=curObject.getString("Username");
+                                System.out.println(dbUsername);
                                 String givenPassword = password.getText().toString();
                                 String dbPassword = curObject.getString("Password");
 
                                 if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
-
+                                    login=true;
                                 }
+                                i++;
                             }
+                            Intent intent=new Intent(MainActivity.this,ShopScreen.class);
+                            startActivity(intent);
+
+
+
+//                            for( int i = 0; i < response.length(); i++ )
+//                            {
+//                                JSONObject curObject = response.getJSONObject( i );
+//                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
+//                                String givenUsername= username.getText().toString();
+//                                String dbUsername=curObject.getString("Username");
+//                                String givenPassword = password.getText().toString();
+//                                String dbPassword = curObject.getString("Password");
+//
+//                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
+//                                    //Intent intent = new Intent(this, ShopScreen.class);
+//                                    //startActivity(intent);
+//                                }
+//                            }
+
                             //txtResponse.setText(responseString);
+
+//                            for( int i = 0; i < response.length(); i++ )
+//                            {
+//                                JSONObject curObject = response.getJSONObject( i );
+//                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
+//                                String givenUsername= username.getText().toString();
+//                                String dbUsername=curObject.getString("Username");
+//                                String givenPassword = password.getText().toString();
+//                                String dbPassword = curObject.getString("Password");
+//
+//                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
+//                                    //Intent intent = new Intent(this, ShopScreen.class);
+//                                    //startActivity(intent);
+//                                }
+//                            }
+
+
                         }
                         catch( JSONException e )
                         {
-                            Log.e( "Database", e.getMessage(), e );
+                            //Log.e( "Database", e.getMessage(), e );
+                            e.printStackTrace();
                         }
                     }
                 },
@@ -77,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        txtResponse.setText( error.getLocalizedMessage() );
+                       //txtResponse.setText( error.getLocalizedMessage() );
+                        Toast.makeText(MainActivity.this, "Unable to log in", Toast.LENGTH_LONG).show();
                     }
                 }
         );
