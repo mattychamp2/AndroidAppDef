@@ -51,13 +51,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response)
                     {
                         try {
-                            //String responseString = "";
-
                             boolean login = false;
                             int i=0;
                             while (!login) {
                                 JSONObject curObject = response.getJSONObject( i );
-                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
                                 String givenUsername= username.getText().toString();
                                 String dbUsername=curObject.getString("Username");
                                 System.out.println(dbUsername);
@@ -69,48 +66,17 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 i++;
                             }
-                            Intent intent=new Intent(MainActivity.this,ShopScreen.class);
-                            startActivity(intent);
 
-
-
-//                            for( int i = 0; i < response.length(); i++ )
-//                            {
-//                                JSONObject curObject = response.getJSONObject( i );
-//                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
-//                                String givenUsername= username.getText().toString();
-//                                String dbUsername=curObject.getString("Username");
-//                                String givenPassword = password.getText().toString();
-//                                String dbPassword = curObject.getString("Password");
-//
-//                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
-//                                    //Intent intent = new Intent(this, ShopScreen.class);
-//                                    //startActivity(intent);
-//                                }
-//                            }
-
-                            //txtResponse.setText(responseString);
-
-//                            for( int i = 0; i < response.length(); i++ )
-//                            {
-//                                JSONObject curObject = response.getJSONObject( i );
-//                                //responseString += curObject.getString( "name" ) + " : " + curObject.getString( "email" ) + "\n";
-//                                String givenUsername= username.getText().toString();
-//                                String dbUsername=curObject.getString("Username");
-//                                String givenPassword = password.getText().toString();
-//                                String dbPassword = curObject.getString("Password");
-//
-//                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
-//                                    //Intent intent = new Intent(this, ShopScreen.class);
-//                                    //startActivity(intent);
-//                                }
-//                            }
-
+                            if (login){
+                                Intent intent=new Intent(MainActivity.this,ShopScreen.class);
+                                startActivity(intent);                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "Username and password do not match", Toast.LENGTH_LONG).show();
+                            }
 
                         }
                         catch( JSONException e )
                         {
-                            //Log.e( "Database", e.getMessage(), e );
                             e.printStackTrace();
                         }
                     }

@@ -43,7 +43,7 @@
         android:layout_height="59dp"
         android:layout_marginTop="48dp"
         android:onClick="onBtnLog_Clicked"
-        android:text="Log in"
+        android:text="Log in as guest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:onClick="login"
-        android:text="Log in mbv database"
+        android:text="Log in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
