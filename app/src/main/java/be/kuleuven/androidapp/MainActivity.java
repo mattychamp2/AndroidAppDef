@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnLog = (Button) findViewById(R.id.btnLog);
+        username = (TextView) findViewById(R.id.txtUser);
+        password = (TextView) findViewById(R.id.txtPass);
     }
 
     public void login( View v )
