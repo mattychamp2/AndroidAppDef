@@ -15,13 +15,7 @@
             android:name=".CreateAccount"
             android:exported="false" />
         <activity
-            android:name=".template"
-            android:exported="false" />
-        <activity
             android:name=".Shop"
-            android:exported="false" />
-        <activity
-            android:name=".ProductPage"
             android:exported="false" />
         <activity
             android:name=".ShopScreen"

@@ -60,7 +60,7 @@ public class ShopScreen extends AppCompatActivity {
 
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Intent intent = new Intent();
-        intent.setClass(this, ProductPage.class);
+        intent.setClass(this, MainActivity.class);
         intent.putExtra("position", position);
         // Or / And
         intent.putExtra("id", id);
