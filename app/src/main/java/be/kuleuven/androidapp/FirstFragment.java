@@ -1,5 +1,6 @@
 package be.kuleuven.androidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener {
 
     RecyclerView recyclerView;
 
@@ -42,7 +43,7 @@ public class FirstFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        MyAdapter myAdapter = new MyAdapter(getActivity(), s1, images);
+        MyAdapter myAdapter = new MyAdapter(getActivity(), s1, images, this);
 
         recyclerView.setAdapter(myAdapter);
 
@@ -60,4 +61,9 @@ public class FirstFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        Intent intent = new Intent(getContext(), ShopScreen.class);
+        startActivity(intent);
+    }
 }
