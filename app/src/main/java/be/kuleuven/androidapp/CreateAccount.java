@@ -28,7 +28,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void createAccountBtn(View caller){
-        JSONArray newAccountInfo = new JSONArray();
+
 
     }
 }
