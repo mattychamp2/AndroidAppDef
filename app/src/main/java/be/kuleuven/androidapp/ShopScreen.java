@@ -1,6 +1,8 @@
 package be.kuleuven.androidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,56 +17,27 @@ import java.util.ArrayList;
 
 public class ShopScreen extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+
+    String[] s1 = {
+            "brood",
+            "brood",
+            "brood"
+    };
+
+    int[] images = {
+            R.drawable.breadpic,
+            R.drawable.breadpic,
+            R.drawable.breadpic
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_screen);
-
-        ListView listview = (ListView) findViewById(R.id.lstView);
-        listview.setOnItemClickListener(this::onItemClick);
-
-        ArrayList<String> arrayLst = new ArrayList<String>();
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-        arrayLst.add("bar");
-        arrayLst.add("foo");
-        arrayLst.add("bar");
-
-
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                arrayLst );
-
-        listview.setAdapter(arrayAdapter);
-
+        recyclerView = findViewById(R.id.scndRecyclerView);
+        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images);
+        recyclerView.setAdapter(mySecondAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        intent.putExtra("position", position);
-        // Or / And
-        intent.putExtra("id", id);
-        startActivity(intent);
-    }
-
 }

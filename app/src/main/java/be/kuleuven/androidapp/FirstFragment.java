@@ -17,7 +17,15 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     RecyclerView recyclerView;
 
-    String[] s1;
+    String[] s1 = {
+        "Brood",
+        "Brood",
+        "Brood",
+        "Brood",
+        "Brood",
+        "Brood"
+    };
+
     int[] images = {
             R.drawable.breadpic,
             R.drawable.breadpic,
@@ -38,7 +46,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        s1 = getResources().getStringArray(R.array.items);
+        //s1 = getResources().getStringArray(R.array.items);
         //s2 = getResources().getStringArray(R.array.description);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
