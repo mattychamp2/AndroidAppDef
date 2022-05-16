@@ -16,10 +16,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     int[] images;
     Context context;
 
-    public MyAdapter(Context ct, String[] s1, String[] s2, int[] img){
+    public MyAdapter(Context ct, String[] s1, int[] img){
         context = ct;
         data1 = s1;
-        data2 = s2;
         images = img;
     }
 
@@ -35,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText_1.setText(data1[position]);
-        holder.myText_2.setText(data2[position]);
+        //holder.myText_2.setText(data2[position]);
         holder.myImage.setImageResource(images[position]);
     }
 
@@ -51,7 +50,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             myText_1 = itemView.findViewById(R.id.item_txt);
-            myText_2 = itemView.findViewById(R.id.description_txt);
             myImage = itemView.findViewById(R.id.my_imageView);
         }
     }

@@ -16,7 +16,7 @@ public class FirstFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    String[] s1, s2;
+    String[] s1;
     int[] images = {
             R.drawable.breadpic,
             R.drawable.breadpic,
@@ -38,11 +38,11 @@ public class FirstFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         s1 = getResources().getStringArray(R.array.items);
-        s2 = getResources().getStringArray(R.array.description);
+        //s2 = getResources().getStringArray(R.array.description);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        MyAdapter myAdapter = new MyAdapter(getActivity(), s1, s2, images);
+        MyAdapter myAdapter = new MyAdapter(getActivity(), s1, images);
 
         recyclerView.setAdapter(myAdapter);
 
