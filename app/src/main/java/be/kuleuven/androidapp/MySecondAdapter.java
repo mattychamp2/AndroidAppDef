@@ -11,12 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyViewHolder> {
 
-    String[] data1;
+    ArrayList<String> data1;
     int[] images;
     Context context;
-    public MySecondAdapter(Context ct, String[] s1, int[] img){
+    public MySecondAdapter(Context ct, ArrayList<String> s1, int[] img){
         context = ct;
         data1 = s1;
         images = img;
@@ -32,13 +34,13 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText.setText(data1[position]);
+        holder.myText.setText(data1.get(position));
         holder.myImage.setImageResource((images[position]));
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return data1.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
