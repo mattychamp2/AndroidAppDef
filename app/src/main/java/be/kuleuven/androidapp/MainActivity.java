@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         String requestURL = "https://studev.groept.be/api/a21pt115/customerList";
 
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
                 new Response.Listener<JSONArray>()
                 {
                     @Override
@@ -66,17 +66,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 i++;
                             }
-
-                            if (login){
-                                Intent intent=new Intent(MainActivity.this,ShopScreen.class);
-                                startActivity(intent);                            }
-                            else{
-                                Toast.makeText(MainActivity.this, "Username and password do not match", Toast.LENGTH_LONG).show();
-                            }
-
+                            Intent intent=new Intent(MainActivity.this,ShopScreen.class);
+                            startActivity(intent);
                         }
                         catch( JSONException e )
                         {
+                            Toast.makeText(MainActivity.this, "Username and password do not match", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                     }

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener {
 
+    private static int categoryID;
     RecyclerView recyclerView;
 
     ArrayList<String> s1 = new ArrayList<>();
@@ -34,6 +35,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
+        //TODO: Replace with categories from query from database
         s1.add("Brood");
         s1.add("Patisserie");
         s1.add("Cake");
@@ -69,8 +71,13 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     @Override
     public void onNoteClick(int position) {
+        categoryID = position;
         Intent intent = new Intent(getContext(), ShopScreen.class);
         startActivity(intent);
         Toast.makeText(getContext(),Integer.toString(position),Toast.LENGTH_SHORT).show();
+    }
+
+    public static int getCategoryID(){
+        return categoryID;
     }
 }

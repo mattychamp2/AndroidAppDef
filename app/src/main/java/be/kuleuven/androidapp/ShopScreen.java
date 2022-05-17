@@ -20,26 +20,39 @@ public class ShopScreen extends AppCompatActivity {
 
     private Button addToCartButton;
 
+    private int categoryId;
+
     RecyclerView recyclerView;
 
     ArrayList<String> s1 = new ArrayList<>();
 
     ArrayList<Integer> images = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_screen);
-        s1.add("Brood");
-        s1.add("Brood");
-        s1.add("Brood");
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
+        populateRecyclerView();
+
         recyclerView = findViewById(R.id.scndRecyclerView);
         MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images);
         recyclerView.setAdapter(mySecondAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    public void populateRecyclerView(){
+        // TODO: Replace with query to show different category of shop depending on the value of getCategoryID.
+        if(FirstFragment.getCategoryID()==0){
+            s1.add("Brood");
+        }
+        else{
+            s1.add("BAA");
+        }
+        s1.add("Brood");
+        s1.add("Brood");
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+    }
 }

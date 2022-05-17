@@ -19,6 +19,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     ArrayList<Integer> images = new ArrayList<>();
     Context context;
     private OnNoteListener mOnNoteListener;
+    private int positionToPass;
 
     public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, OnNoteListener onNoteListener){
         context = ct;
