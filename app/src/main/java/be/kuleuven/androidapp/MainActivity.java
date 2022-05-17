@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 i++;
                             }
-                            Intent intent=new Intent(MainActivity.this,ShopScreen.class);
+                            Intent intent=new Intent(MainActivity.this,Shop.class);
                             startActivity(intent);
                         }
                         catch( JSONException e )
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 },
-
                 new Response.ErrorListener()
                 {
                     @Override
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
         requestQueue.add(submitRequest);
     }
 

@@ -20,8 +20,6 @@ public class ShopScreen extends AppCompatActivity {
 
     private Button addToCartButton;
 
-    private int categoryId;
-
     RecyclerView recyclerView;
 
     ArrayList<String> s1 = new ArrayList<>();
@@ -34,7 +32,7 @@ public class ShopScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_screen);
         populateRecyclerView();
-
+        addToCartButton = findViewById(R.id.btnAdd);
         recyclerView = findViewById(R.id.scndRecyclerView);
         MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images);
         recyclerView.setAdapter(mySecondAdapter);
@@ -55,4 +53,9 @@ public class ShopScreen extends AppCompatActivity {
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
     }
+
+    public void addArticleToCartBtn(View caller){
+
+    }
+
 }
