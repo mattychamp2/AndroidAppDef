@@ -22,13 +22,9 @@ public class ShopScreen extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    ArrayList<String> s1 = new ArrayList<String>();
+    ArrayList<String> s1 = new ArrayList<>();
 
-    int[] images = {
-            R.drawable.breadpic,
-            R.drawable.breadpic,
-            R.drawable.breadpic
-    };
+    ArrayList<Integer> images = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +33,9 @@ public class ShopScreen extends AppCompatActivity {
         s1.add("Brood");
         s1.add("Brood");
         s1.add("Brood");
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
         recyclerView = findViewById(R.id.scndRecyclerView);
         MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images);
         recyclerView.setAdapter(mySecondAdapter);

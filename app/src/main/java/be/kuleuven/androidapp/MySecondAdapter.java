@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyViewHolder> {
 
     ArrayList<String> data1;
-    int[] images;
+    ArrayList<Integer> images;
     Context context;
-    public MySecondAdapter(Context ct, ArrayList<String> s1, int[] img){
+    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img){
         context = ct;
         data1 = s1;
         images = img;
@@ -35,7 +35,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText.setText(data1.get(position));
-        holder.myImage.setImageResource((images[position]));
+        holder.myImage.setImageResource((images.get(position)));
     }
 
     @Override

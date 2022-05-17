@@ -8,16 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    String[] data1, data2;
-    int[] images;
+    ArrayList<String> data1 = new ArrayList<>();
+    ArrayList<Integer> images = new ArrayList<>();
     Context context;
     private OnNoteListener mOnNoteListener;
 
-    public MyAdapter(Context ct, String[] s1, int[] img, OnNoteListener onNoteListener){
+    public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, OnNoteListener onNoteListener){
         context = ct;
         data1 = s1;
         images = img;
@@ -35,17 +38,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText_1.setText(data1[position]);
-        holder.myImage.setImageResource(images[position]);
+        holder.myText_1.setText(data1.get(position));
+        holder.myImage.setImageResource(images.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return data1.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         TextView myText_1;
         ImageView myImage;
         OnNoteListener onNoteListener;

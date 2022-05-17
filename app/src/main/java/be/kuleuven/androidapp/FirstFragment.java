@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,23 +20,8 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     RecyclerView recyclerView;
 
-    String[] s1 = {
-        "Brood",
-        "Brood",
-        "Brood",
-        "Brood",
-        "Brood",
-        "Brood"
-    };
-
-    int[] images = {
-            R.drawable.breadpic,
-            R.drawable.breadpic,
-            R.drawable.breadpic,
-            R.drawable.breadpic,
-            R.drawable.breadpic,
-            R.drawable.breadpic
-    };
+    ArrayList<String> s1 = new ArrayList<>();
+    ArrayList<Integer> images = new ArrayList<>();
 
     public FirstFragment(){
         // require a empty public constructor
@@ -46,8 +34,18 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        //s1 = getResources().getStringArray(R.array.items);
-        //s2 = getResources().getStringArray(R.array.description);
+        s1.add("Brood");
+        s1.add("Patisserie");
+        s1.add("Cake");
+        s1.add("Taart");
+        s1.add("Pralines");
+        s1.add("Belegde Broodjes");
+        images.add(R.drawable.broodassortiment);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -73,5 +71,6 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
     public void onNoteClick(int position) {
         Intent intent = new Intent(getContext(), ShopScreen.class);
         startActivity(intent);
+        Toast.makeText(getContext(),Integer.toString(position),Toast.LENGTH_SHORT).show();
     }
 }
