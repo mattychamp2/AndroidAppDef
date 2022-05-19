@@ -1,6 +1,7 @@
 package be.kuleuven.androidapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<String> data1 = new ArrayList<>();
-    ArrayList<Integer> images = new ArrayList<>();
+    ArrayList<Bitmap> images = new ArrayList<>();
     Context context;
     private OnNoteListener mOnNoteListener;
     private int positionToPass;
 
-    public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, OnNoteListener onNoteListener){
+    public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, OnNoteListener onNoteListener){
         context = ct;
         data1 = s1;
         images = img;
@@ -40,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText_1.setText(data1.get(position));
-        holder.myImage.setImageResource(images.get(position));
+        holder.myImage.setImageBitmap(images.get(position));
     }
 
     @Override
