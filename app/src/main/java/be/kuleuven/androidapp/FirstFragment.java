@@ -68,12 +68,12 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                                 String curCat = curObject.getString("ProductFamily");
                                 s2.add(curCat);
                                 index++;
-                                System.out.println(curCat);
+                                //System.out.println(curCat);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 decode();
                                 finished = true;
-                                System.out.println(s2 + "na de db loop");
+                                //System.out.println(s2 + "na de db loop");
                                 setAdapter();
                                 s3 = s2;
                             }

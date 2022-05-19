@@ -44,10 +44,7 @@ public class ShopScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_screen);
-        //populateRecyclerView();
         addToCartButton = findViewById(R.id.btnAdd);
-        recyclerView = findViewById(R.id.scndRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
@@ -69,6 +66,7 @@ public class ShopScreen extends AppCompatActivity {
                         int index = 0;
                         while(!finished){
                             try {
+                                System.out.println(response);
                                 JSONObject curObject = response.getJSONObject(index);
                                 String curCat = curObject.getString("name");
                                 s1.add(curCat);
@@ -93,7 +91,13 @@ public class ShopScreen extends AppCompatActivity {
                 }
         );
         requestQueue.add(submitRequest);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        recyclerView = findViewById(R.id.scndRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private String makeURL() {
