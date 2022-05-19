@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener {
 
+    private static ArrayList<String> s3;
     private RequestQueue requestQueue;
     private volatile boolean dbf;
     private static int categoryID;
@@ -50,7 +51,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
         //TODO: Replace with categories from query from database
 
-        images.add(R.drawable.broodassortiment);
+        images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
@@ -80,6 +81,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                                 finished = true;
                                 System.out.println(s2 + "na de db loop");
                                 setAdapter();
+                                s3 = s2;
                             }
                         }
                     }
@@ -128,5 +130,9 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     public static int getCategoryID(){
         return categoryID;
+    }
+
+    public static ArrayList<String> getArrayList(){
+        return s3;
     }
 }
