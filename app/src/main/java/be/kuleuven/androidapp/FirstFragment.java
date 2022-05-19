@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -30,9 +31,10 @@ import org.json.JSONObject;
 public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener {
 
     private RequestQueue requestQueue;
-    private volatile boolean databaseFinished;
+    private volatile boolean dbf;
     private static int categoryID;
     RecyclerView recyclerView;
+
 
     ArrayList<String> s1 = new ArrayList<>();
     ArrayList<String> s2 = new ArrayList<>();
@@ -46,67 +48,15 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        databaseFinished = false;
-
-
         //TODO: Replace with categories from query from database
-        populate();
 
-        System.out.println(s2 + "normaal direct daaropvolgend");
-        s1.add("Brood");
-        s1.add("Patisserie");
-        s1.add("Cake");
-        s1.add("Taart");
-        s1.add("Pralines");
-        s1.add("Belegde Broodjes");
-
-        databaseFinished = false;
         images.add(R.drawable.broodassortiment);
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
         images.add(R.drawable.breadpic);
-        //images.add(R.drawable.breadpic);
+        images.add(R.drawable.breadpic);
 
-        View rootView = inflater.inflate(R.layout.fragment_first, container, false);
-
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        System.out.println(s1 + "hiere");
-        System.out.println(s2 + "dees hopelijk ook vol");
-
-        MyAdapter myAdapter = new MyAdapter(getActivity(), s1, images, this);
-
-        recyclerView.setAdapter(myAdapter);
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        return rootView;
-    }
-
-    public static FirstFragment newInstance() {
-        Bundle args = new Bundle();
-
-        FirstFragment fragment = new FirstFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onNoteClick(int position) {
-        categoryID = position;
-        Intent intent = new Intent(getContext(), ShopScreen.class);
-        startActivity(intent);
-        Toast.makeText(getContext(),Integer.toString(position),Toast.LENGTH_SHORT).show();
-    }
-
-    public static int getCategoryID(){
-        return categoryID;
-    }
-
-    public void populate(){
         requestQueue = Volley.newRequestQueue( getActivity() );
         String requestURL = "https://studev.groept.be/api/a21pt115/getCategories";
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
@@ -128,9 +78,10 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 finished = true;
+                                System.out.println(s2 + "na de db loop");
+                                setAdapter();
                             }
                         }
-                        System.out.println(s2 + "na de db loop");
                     }
                 },
                 new Response.ErrorListener()
@@ -143,6 +94,39 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                 }
         );
         requestQueue.add(submitRequest);
-        databaseFinished = true;
+
+        View rootView = inflater.inflate(R.layout.fragment_first, container, false);
+
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        return rootView;
+    }
+
+    public void setAdapter(){
+        MyAdapter myAdapter = new MyAdapter(getActivity(), s2, images, this);
+        recyclerView.setAdapter(myAdapter);
+    }
+
+    public static FirstFragment newInstance() {
+        Bundle args = new Bundle();
+        FirstFragment fragment = new FirstFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        categoryID = position;
+        Intent intent = new Intent(getContext(), ShopScreen.class);
+        startActivity(intent);
+        Toast.makeText(getContext(),Integer.toString(position),Toast.LENGTH_SHORT).show();
+    }
+
+    public static int getCategoryID(){
+        return categoryID;
     }
 }
