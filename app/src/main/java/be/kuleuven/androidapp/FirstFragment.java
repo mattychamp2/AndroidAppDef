@@ -127,7 +127,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
         requestQueue.add(submitRequest1);
         //wait for query to be executed
         try {
-            Thread.sleep(500);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -106,7 +106,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
         );
         requestQueue.add(submitRequest);
         try {
-            Thread.sleep(500);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
