@@ -32,11 +32,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShopScreen extends AppCompatActivity {
+public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnNoteListener {
 
     private Button addToCartButton;
 
     private RequestQueue requestQueue;
+
+    private int count;
 
     RecyclerView recyclerView;
 
@@ -44,8 +46,16 @@ public class ShopScreen extends AppCompatActivity {
 
     ArrayList<Integer> images = new ArrayList<>();
 
+    ArrayList<String> checkCartItems = new ArrayList<>();
+    ArrayList<Integer> checkCartQty = new ArrayList<>();
+
+    private static int itemID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        count = 0;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_screen);
         addToCartButton = findViewById(R.id.btnAdd);
@@ -96,7 +106,7 @@ public class ShopScreen extends AppCompatActivity {
         );
         requestQueue.add(submitRequest);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -109,35 +119,103 @@ public class ShopScreen extends AppCompatActivity {
         return ("https://studev.groept.be/api/a21pt115/getItems/" + cat);
     }
 
+    private String makeURL2(){
+        String name = s1.get(itemID);
+        String toReturn = "https://studev.groept.be/api/a21pt115/insertTest/" + name;
+        return toReturn;
+    }
+
     public void setAdapter() {
-        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images);
+        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, this);
         recyclerView.setAdapter(mySecondAdapter);
     }
 
-    private void postDataUsingVolley() {
-        String url = "https://studev.groept.be/api/a21pt115/insertTest";
+    private void postDataUsingVolley(String url) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(ShopScreen.this, "Data added to API", Toast.LENGTH_SHORT).show();
-
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // method to handle errors.
-                Toast.makeText(ShopScreen.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+
             }
         });
         queue.add(request);
     }
 
-
-    public void addArticleToCartBtn(View caller){
-        postDataUsingVolley();
+    @Override
+    public void onNoteClick(int position) {
+        itemID = position;
+        if(count >= s1.size()) {
+            checkCart();
+            Toast.makeText(this, s1.get(position) + " has been added to your cart", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            count++;
+        }
     }
 
+    private void addNew() {
+        postDataUsingVolley(makeURL2());
+    }
+
+    private void increase() {
+        postDataUsingVolley(makeURL2());
+    }
+
+    private void checkCart() {
+        requestQueue = Volley.newRequestQueue(this);
+        String requestURL = "https://studev.groept.be/api/a21pt115/getCart";
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response)
+                    {
+                        checkCartItems = new ArrayList<>();
+                        checkCartQty = new ArrayList<>();
+                        System.out.println(response);
+                        boolean finished = false;
+                        int index = 0;
+                        while(!finished){
+                            try {
+                                System.out.println(response);
+                                JSONObject curObject = response.getJSONObject(index);
+                                String curCat = curObject.getString("item");
+                                checkCartItems.add(curCat);
+                                int curQty = curObject.getInt("quantity");
+                                checkCartQty.add(curQty);
+                                index++;
+                                //System.out.println(curCat);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                finished = true;
+                                System.out.println(checkCartQty + "na de db loop");
+                                System.out.println(checkCartItems + "na de db loop");
+                                if(checkCartItems.contains("Volkoren")){
+                                    increase();
+                                }
+                                else{
+                                    addNew();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        //txtResponse.setText( error.getLocalizedMessage() );
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+    }
 }

@@ -16,11 +16,10 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    ArrayList<String> data1 = new ArrayList<>();
-    ArrayList<Bitmap> images = new ArrayList<>();
+    ArrayList<String> data1;
+    ArrayList<Bitmap> images;
     Context context;
     private OnNoteListener mOnNoteListener;
-    private int positionToPass;
 
     public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, OnNoteListener onNoteListener){
         context = ct;

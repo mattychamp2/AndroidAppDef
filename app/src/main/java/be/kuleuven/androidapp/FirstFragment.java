@@ -35,7 +35,6 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     private static ArrayList<String> s3;
     private RequestQueue requestQueue;
-    private volatile boolean dbf;
     private static int categoryID;
     RecyclerView recyclerView;
 
@@ -128,7 +127,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
         requestQueue.add(submitRequest1);
         //wait for query to be executed
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -157,7 +156,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
 
     public void setAdapter(){
 
-        MyAdapter myAdapter = new MyAdapter(getActivity(), s2, images, this);
+        MyAdapter myAdapter = new MyAdapter(getContext(), s2, images, this);
         recyclerView.setAdapter(myAdapter);
     }
 
