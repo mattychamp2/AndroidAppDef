@@ -14,12 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -27,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShopScreen extends AppCompatActivity {
 
@@ -110,23 +114,30 @@ public class ShopScreen extends AppCompatActivity {
         recyclerView.setAdapter(mySecondAdapter);
     }
 
-    public void populateRecyclerView(){
-        // TODO: Replace with query to show different category of shop depending on the value of getCategoryID.
-        if(FirstFragment.getCategoryID()==0){
-            s1.add("Brood");
-        }
-        else{
-            s1.add("BAA");
-        }
-        s1.add("Brood");
-        s1.add("Brood");
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
+    private void postDataUsingVolley() {
+        String url = "https://studev.groept.be/api/a21pt115/insertTest";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(ShopScreen.this, "Data added to API", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // method to handle errors.
+                Toast.makeText(ShopScreen.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(request);
     }
 
-    public void addArticleToCartBtn(View caller){
 
+    public void addArticleToCartBtn(View caller){
+        postDataUsingVolley();
     }
 
 }
