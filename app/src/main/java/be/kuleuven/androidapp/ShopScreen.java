@@ -116,13 +116,17 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
 
     private String makeURL() {
         String cat = FirstFragment.getArrayList().get(FirstFragment.getCategoryID());
-        return ("https://studev.groept.be/api/a21pt115/getItems/" + cat);
+        return "https://studev.groept.be/api/a21pt115/getItems/" + cat;
     }
 
     private String makeURL2(){
         String name = s1.get(itemID);
-        String toReturn = "https://studev.groept.be/api/a21pt115/insertTest/" + name;
-        return toReturn;
+        return "https://studev.groept.be/api/a21pt115/insertTest/" + name;
+    }
+
+    private String makeURLinc(){
+        String name = s1.get(itemID);
+        return "https://studev.groept.be/api/a21pt115/increaseItemInCart/" + name;
     }
 
     public void setAdapter() {
@@ -131,9 +135,11 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     }
 
     private void postDataUsingVolley(String url) {
+
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -164,7 +170,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     }
 
     private void increase() {
-        postDataUsingVolley(makeURL2());
+        postDataUsingVolley(makeURLinc());
     }
 
     private void checkCart() {
@@ -197,7 +203,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                                 finished = true;
                                 System.out.println(checkCartQty + "na de db loop");
                                 System.out.println(checkCartItems + "na de db loop");
-                                if(checkCartItems.contains("Volkoren")){
+                                if(checkCartItems.contains(s1.get(itemID))){
                                     increase();
                                 }
                                 else{
