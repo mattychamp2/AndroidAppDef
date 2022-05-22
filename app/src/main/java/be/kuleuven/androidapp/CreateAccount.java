@@ -131,6 +131,7 @@ public class CreateAccount extends AppCompatActivity {
                                 if (un.equals(dbUsername)) {
                                     sameUn = true;
                                     Toast.makeText(CreateAccount.this, "This username already exists", Toast.LENGTH_SHORT).show();
+                                    break;
                                 }
                                 i++;
                             }
@@ -141,14 +142,18 @@ public class CreateAccount extends AppCompatActivity {
                     }
                 },
 
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(CreateAccount.this, "Server Error", Toast.LENGTH_SHORT).show();
                     }
                 }
+
         );
+
         requestQueue.add(submitRequest);
+        System.out.println(sameUn);
         return sameUn;
     }
 }
