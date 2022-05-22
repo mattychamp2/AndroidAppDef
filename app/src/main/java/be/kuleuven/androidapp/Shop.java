@@ -95,6 +95,8 @@ public class Shop extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    public void btnLogOut(View caller){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

@@ -21,7 +21,6 @@ public class OrderPage extends AppCompatActivity {
     int hour, minute;
     private DatePickerDialog datePickerDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

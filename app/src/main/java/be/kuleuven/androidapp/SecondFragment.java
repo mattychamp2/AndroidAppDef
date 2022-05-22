@@ -36,38 +36,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener{
+public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener {
 
     private RequestQueue requestQueue;
     ArrayList<String> s1 = new ArrayList<>();
     ArrayList<Integer> s2 = new ArrayList<>();
     ArrayList<String> rawImages = new ArrayList<>();
-    ArrayList<Bitmap> images  =new ArrayList<>();
+    ArrayList<Bitmap> images = new ArrayList<>();
     private int count;
-
     RecyclerView recyclerView;
 
-    public SecondFragment(){
-        // require a empty public constructor
+    public SecondFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         count = 0;
-        requestQueue = Volley.newRequestQueue( getActivity() );
+        requestQueue = Volley.newRequestQueue(getActivity());
         String requestURL = "https://studev.groept.be/api/a21pt115/getCartForFragment";
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-                //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response)
-                    {
+                    public void onResponse(JSONArray response) {
                         boolean finished = false;
                         int index = 0;
-                        while(!finished){
+                        while (!finished) {
                             try {
                                 JSONObject curObject = response.getJSONObject(index);
                                 String curItem = curObject.getString("item");
@@ -77,7 +70,6 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
                                 String curRIm = curObject.getString("CategoryImage");
                                 rawImages.add(curRIm);
                                 index++;
-                                //System.out.println(curCat);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 decode();
@@ -87,18 +79,15 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
                         }
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        //txtResponse.setText( error.getLocalizedMessage() );
+                    public void onErrorResponse(VolleyError error) {
                     }
                 }
         );
         requestQueue.add(submitRequest);
 
-        View rootView =  inflater.inflate(R.layout.fragment_second, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_second, container, false);
 
         recyclerView = rootView.findViewById(R.id.recyclerViewFr2);
 
@@ -109,25 +98,21 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
         return rootView;
     }
 
-    public void decode(){
-        for(int i = 0; i < rawImages.size(); i++){
-            //System.out.println(s1.get(i));
-            byte[] decodedString = Base64.decode(rawImages.get(i),Base64.DEFAULT);
+    public void decode() {
+        for (int i = 0; i < rawImages.size(); i++) {
+            byte[] decodedString = Base64.decode(rawImages.get(i), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             images.add(decodedByte);
         }
     }
 
-    public void setAdapter(){
+    public void setAdapter() {
         MyThirdAdapter myThirdAdapter = new MyThirdAdapter(getContext(), s1, s2, images, this::onNoteClick);
-
         recyclerView.setAdapter(myThirdAdapter);
     }
 
     public static SecondFragment newInstance() {
-
         Bundle args = new Bundle();
-
         SecondFragment fragment = new SecondFragment();
         fragment.setArguments(args);
         return fragment;
@@ -135,43 +120,34 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
 
     @Override
     public void onNoteClick(int position) {
-        if(count>=s1.size()) {
+        if (count >= s1.size()) {
             if (s2.get(position) == 1) {
                 removeFromCart("https://studev.groept.be/api/a21pt115/deleteItemFromCart/" + s1.get(position));
             } else {
                 removeFromCart("https://studev.groept.be/api/a21pt115/decreaseItemInCart/" + s1.get(position));
             }
-        }
-        else {
+        } else {
             count++;
         }
     }
 
     private void removeFromCart(String url) {
-        requestQueue = Volley.newRequestQueue( getActivity() );
+        requestQueue = Volley.newRequestQueue(getActivity());
         String requestURL = url;
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response)
-                        {
-
-                        }
-                    },
-                new Response.ErrorListener()
-                {
+                    public void onResponse(JSONArray response) {
+                    }
+                },
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
                     }
                 }
-            );
+        );
         requestQueue.add(submitRequest);
-        Toast.makeText(getContext(),"removed",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "removed", Toast.LENGTH_SHORT).show();
     }
-
-
-
 }
