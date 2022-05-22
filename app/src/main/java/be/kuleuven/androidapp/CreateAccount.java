@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -28,6 +30,9 @@ public class CreateAccount extends AppCompatActivity {
     private TextView passwordRepeat;
     private RequestQueue requestQueue;
     private Button createAccBtn;
+    private String postUrl;
+    private String checkUnUrl;
+    private boolean sameUn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,87 +44,113 @@ public class CreateAccount extends AppCompatActivity {
         password = (TextView) findViewById(R.id.Password);
         passwordRepeat = (TextView) findViewById(R.id.Password2);
         createAccBtn = (Button) findViewById(R.id.createAccBtn);
+        postUrl = "https://studev.groept.be/api/a21pt115/insertAccount";
+        checkUnUrl = "https://studev.groept.be/api/a21pt115/getUsername";
+    }
 
+    public String getInfo() {
+        String fn = firstName.getText().toString();
+        String ln = lastName.getText().toString();
+        String un = username.getText().toString();
+        String pw = password.getText().toString();
+        //(Username, Password, LastName, FirstName)
+        return postUrl + "/" + un + "/" + pw + "/" + ln + "/" + fn;
+    }
 
+    public void createAccount(View v) {
+        requestQueue = Volley.newRequestQueue(this);
 
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, getInfo(), null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        String givenPw = password.getText().toString();
+                        String givenPwRp = passwordRepeat.getText().toString();
+                        String fn = firstName.getText().toString();
+                        String ln = lastName.getText().toString();
+                        String un = username.getText().toString();
 
+                        if (checkRequirements() && !existingUsername(v)){
+                            Toast.makeText(CreateAccount.this, "Account successfully created", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
 
-//        createAccBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // validating if the text field is empty or not.
-//                if (!(password.getText().toString().equals(passwordRepeat.getText().toString()))) {
-//                    Toast.makeText(CreateAccount.this, "Passwords must be the same!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                // calling a method to post the data and passing our name and job.
-//                createAccountBtn(firstName.getText().toString(), lastName.getText().toString(), username.getText().toString(),
-//                        password.getText().toString());
-//            }
-//        });
-//
-//    }
-//
-//    public void createAccountBtn(String firstName, String lastName, String username, String password){
-//        String url = "https://studev.groept.be/api/a21pt115/insertAccount";
-//        requestQueue = Volley.newRequestQueue(this);
-//        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                // inside on response method we are
-//                // hiding our progress bar
-//                // and setting data to edit text as empty
-//                //loadingPB.setVisibility(View.GONE);
-//
-//                // on below line we are displaying a success toast message.
-//
-//                try {
-//                    // on below line we are parsing the response
-//                    // to json object to extract data from it.
-//                    JSONObject respObj = new JSONObject(response);
-//
-//                    // below are the strings which we
-//                    // extract from our json object.
-//                    String firstName = respObj.getString("firstName");
-//                    String lastName = respObj.getString("lastName");
-//                    String username = respObj.getString("username");
-//                    String password = respObj.getString("password");
-//
-//                    // on below line we are setting this string s to our text view.
-//                    //responseTV.setText("Name : " + name + "\n" + "Job : " + job);
-//                    Toast.makeText(CreateAccount.this, "You successfully created an account", Toast.LENGTH_SHORT).show();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(CreateAccount.this, "Fail", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }, new com.android.volley.Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                // method to handle errors.
-//                Toast.makeText(CreateAccount.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                // below line we are creating a map for
-//                // storing our values in key and value pair.
-//                Map<String, String> params = new HashMap<String, String>();
-//
-//                // on below line we are passing our key
-//                // and value pair to our parameters.
-//                params.put("userName", username);
-//                params.put("password", password);
-//                params.put("lastName", lastName);
-//                params.put("firstName", firstName);
-//
-//                // at last we are
-//                // returning our params.
-//                return params;
-//            }
-//        };
-//        // below line is to make
-//        // a json object request.
-//        requestQueue.add(request);
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CreateAccount.this, "Could not create account", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+    }
+
+    public boolean checkRequirements(){
+        String givenPw = password.getText().toString();
+        String givenPwRp = passwordRepeat.getText().toString();
+        String fn = firstName.getText().toString();
+        String ln = lastName.getText().toString();
+        String un = username.getText().toString();
+        boolean check = true;
+
+        if (fn.equals("") || ln.equals("") || un.equals("") || givenPw.equals("") || givenPwRp.equals("")){
+            Toast.makeText(CreateAccount.this, "Please fill in all the required fields", Toast.LENGTH_SHORT).show();
+            check = false;
+        }
+
+        if (!(givenPw.equals(givenPwRp))) {
+            Toast.makeText(CreateAccount.this, "Passwords must be the same!", Toast.LENGTH_SHORT).show();
+            check = false;
+        }
+
+        if (un.contains(" ")){
+            Toast.makeText(CreateAccount.this, "No spaces allowed in username", Toast.LENGTH_SHORT).show();
+            check = false;
+        }
+        return check;
+    }
+
+    public boolean existingUsername(View v){
+        requestQueue = Volley.newRequestQueue(this);
+        sameUn = false;
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, checkUnUrl, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+
+                            String un = username.getText().toString();
+                            int i = 0;
+                            while (i < response.length()) {
+
+                                JSONObject curObject = response.getJSONObject(i);
+                                String dbUsername = null;
+                                dbUsername = curObject.getString("Username");
+
+                                if (un.equals(dbUsername)) {
+                                    sameUn = true;
+                                    Toast.makeText(CreateAccount.this, "This username already exists", Toast.LENGTH_SHORT).show();
+                                }
+                                i++;
+                            }
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
+                            }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CreateAccount.this, "Server Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+        return sameUn;
     }
 }
+
+

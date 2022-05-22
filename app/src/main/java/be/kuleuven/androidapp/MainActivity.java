@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             boolean login = false;
                             int i=0;
-                            while (!login) {
+                            while (i< response.length()) {
                                 JSONObject curObject = response.getJSONObject( i );
                                 String givenUsername= username.getText().toString();
                                 String dbUsername=curObject.getString("Username");
@@ -66,12 +66,19 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 i++;
                             }
-                            Intent intent=new Intent(MainActivity.this,Shop.class);
-                            startActivity(intent);
+
+                            if (login){
+                                Intent intent=new Intent(MainActivity.this,Shop.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "Password and username do not match", Toast.LENGTH_LONG).show();
+                            }
+
+
                         }
                         catch( JSONException e )
                         {
-                            Toast.makeText(MainActivity.this, "Username and password do not match", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                     }
