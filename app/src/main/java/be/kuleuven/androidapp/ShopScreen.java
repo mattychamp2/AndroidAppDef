@@ -135,8 +135,6 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     }
 
     private void postDataUsingVolley(String url) {
-
-
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {

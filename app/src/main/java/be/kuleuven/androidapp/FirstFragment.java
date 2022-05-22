@@ -111,6 +111,7 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                                 finished = true;
                                 //System.out.println(s1 + "na de db loop");
                                 decode();
+
                             }
                         }
                     }
