@@ -1,18 +1,26 @@
 package be.kuleuven.androidapp;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.*;
 import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,18 +135,43 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
 
     @Override
     public void onNoteClick(int position) {
-        //removeFromCart();
-        Toast.makeText(getContext(),"removed",Toast.LENGTH_SHORT).show();
-        System.out.println(count);
-        count++;
-    }
-
-    private void removeFromCart() {
-        if(count>=s1.size()){
-            Toast.makeText(getContext(),"removed",Toast.LENGTH_SHORT).show();
+        if(count>=s1.size()) {
+            if (s2.get(position) == 1) {
+                removeFromCart("https://studev.groept.be/api/a21pt115/deleteItemFromCart/" + s1.get(position));
+            } else {
+                removeFromCart("https://studev.groept.be/api/a21pt115/decreaseItemInCart/" + s1.get(position));
+            }
         }
-        else{
+        else {
             count++;
         }
     }
+
+    private void removeFromCart(String url) {
+        requestQueue = Volley.newRequestQueue( getActivity() );
+        String requestURL = url;
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response)
+                        {
+
+                        }
+                    },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                    }
+                }
+            );
+        requestQueue.add(submitRequest);
+        Toast.makeText(getContext(),"removed",Toast.LENGTH_SHORT).show();
+    }
+
+
+
 }
