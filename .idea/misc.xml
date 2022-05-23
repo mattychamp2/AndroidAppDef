@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_create_account.xml" value="0.2151268115942029" />
+        <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_create_account.xml" value="0.2" />
         <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_order_page.xml" value="0.2151268115942029" />
         <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_product_page.xml" value="0.2" />
         <entry key="..\:/Users/timve/Documents/Industr 21-22/Semester 2/Programmeertechnieken/AndroidApp/app/src/main/res/layout/activity_shop_screen.xml" value="0.264" />
         <entry key="..\:/schoo/AndroidAppDef/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2985" />
@@ -19,14 +20,13 @@
         <entry key="..\:/schoo/AndroidAppDef/app/src/main/res/layout/my_second_row.xml" value="0.358695652173913" />
         <entry key="..\:/schoo/AndroidAppDef/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/activity_create_account.xml" value="0.21920289855072464" />
-        <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/activity_main.xml" value="0.24094202898550723" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/activity_order_page.xml" value="0.21920289855072464" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/activity_shop.xml" value="0.12590579710144928" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/activity_shop_screen.xml" value="0.21920289855072464" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/fragment_first.xml" value="0.21920289855072464" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/fragment_second.xml" value="0.21920289855072464" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/fragment_third.xml" value="0.21920289855072464" />
-        <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/my_second_row.xml" value="0.536" />
+        <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/my_second_row.xml" value="0.21920289855072464" />
         <entry key="..\:/school/AndroidAppDef/app/src/main/res/layout/my_third_row.xml" value="0.264" />
         <entry key="..\:/school/androidApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/school/androidApp/app/src/main/res/layout/activity_product_page.xml" value="0.223731884057971" />

@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private TextView password;
     private RequestQueue requestQueue;
-    private TextView txtResponse;
     private static String loggedUser;
 
     @Override
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                       //txtResponse.setText( error.getLocalizedMessage() );
                         Toast.makeText(MainActivity.this, "Unable to log in", Toast.LENGTH_LONG).show();
                     }
                 }

@@ -49,11 +49,12 @@
 
     <EditText
         android:id="@+id/Password"
-        android:layout_width="164dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="6dp"
-        android:hint="Pick a password"
+        android:layout_width="732dp"
+        android:layout_height="191dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:hint="Pick a password with at least 7 characters which contains letters, numbers and non-letters"
+        android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
@@ -64,6 +65,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="13dp"
         android:hint="Repeat your password"
+        android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
 

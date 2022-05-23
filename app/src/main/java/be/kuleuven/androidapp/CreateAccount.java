@@ -2,6 +2,7 @@ package be.kuleuven.androidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +19,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.*;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -88,15 +92,12 @@ public class CreateAccount extends AppCompatActivity {
                                     createAccount(v);
                                 }
                             }
-                            //System.out.println(sameUn);
-
                         }
                         catch (JSONException e){
                             e.printStackTrace();
                         }
                     }
                 },
-
 
                 new Response.ErrorListener() {
                     @Override
@@ -106,9 +107,7 @@ public class CreateAccount extends AppCompatActivity {
                 }
 
         );
-
         requestQueue.add(submitRequest);
-        //System.out.println(sameUn);
     }
 
     public boolean checkRequirements(View v){
@@ -128,6 +127,17 @@ public class CreateAccount extends AppCompatActivity {
             Toast.makeText(CreateAccount.this, "Passwords must be the same!", Toast.LENGTH_SHORT).show();
             check = false;
         }
+        else{
+            if (givenPw.length()<7){
+                Toast.makeText(CreateAccount.this, "Password must be at least 7 charachters long", Toast.LENGTH_SHORT).show();
+                check = false;
+            }
+
+            if (!(checkPwReq(givenPw))){
+                Toast.makeText(CreateAccount.this, "Password must be contain a mix of letters, symbols and numbers", Toast.LENGTH_SHORT).show();
+                check = false;
+            }
+        }
 
         if (un.contains(" ")){
             Toast.makeText(CreateAccount.this, "No spaces allowed in username", Toast.LENGTH_SHORT).show();
@@ -138,8 +148,6 @@ public class CreateAccount extends AppCompatActivity {
             Toast.makeText(CreateAccount.this, "Write your last name in one word or use underscores", Toast.LENGTH_SHORT).show();
             check = false;
         }
-
-
 
         return check;
     }
@@ -152,9 +160,10 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        existingUsername(v);
                         if (checkRequirements(v)){
                             Toast.makeText(CreateAccount.this, "Account successfully created", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CreateAccount.this, Shop.class);
+                            startActivity(intent);
                         }
                     }
                 },
@@ -169,6 +178,42 @@ public class CreateAccount extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
+    public boolean checkPwReq(String pw){
+        boolean check = true;
+        boolean onlyLetters = true;
+        boolean onlyDigits = true;
+        boolean onlySymbols = false;
+        boolean noSymbols = false;
+        char[] chars = pw.toCharArray();
+        for (char c: chars){
+            if (!(Character.isLetter(c))){
+                // $ en _ zijn letters in java
+                onlyLetters = false;
+            }
+        }
+        for (char c: chars){
+            if (!(Character.isDigit(c))){
+                onlyDigits = false;
+            }
+        }
+        int counter = 0;
+        for (char c: chars){
+            if ((Character.isDigit(c) || (Character.isLetter(c)))){
+                counter++;
+            }
+        }
+        if (counter==pw.length()){
+            onlySymbols=true;
+        }
+        else if (counter==0){
+            noSymbols = true;
+        }
+
+        if (onlyDigits || onlyLetters || onlySymbols || noSymbols){
+            check = false;
+        }
+        return check;
+    }
 
 }
 
