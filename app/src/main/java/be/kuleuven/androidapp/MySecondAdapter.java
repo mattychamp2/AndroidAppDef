@@ -1,5 +1,6 @@
 package be.kuleuven.androidapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -17,13 +18,15 @@ import java.util.ArrayList;
 public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyViewHolder> {
 
     ArrayList<String> data1;
+    ArrayList<Double> data2;
     ArrayList<Integer> images;
     Context context;
     private OnNoteListener mOnNoteListener;
 
-    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, OnNoteListener onNoteListener){
+    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, ArrayList<Double> s2, OnNoteListener onNoteListener){
         context = ct;
         data1 = s1;
+        data2 = s2;
         images = img;
         this.mOnNoteListener = onNoteListener;
     }
@@ -36,10 +39,12 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
         return new MyViewHolder(view, mOnNoteListener);
     }
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText.setText(data1.get(position));
         holder.myImage.setImageResource((images.get(position)));
+        holder.myPrice.setText("€" + String.format("%.1f", data2.get(position)) + "0");
         holder.myButton.callOnClick();
     }
 
@@ -50,7 +55,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView myText;
+        TextView myText, myPrice;
         ImageView myImage;
         Button myButton;
         OnNoteListener onNoteListener;
@@ -60,6 +65,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
             myText = itemView.findViewById(R.id.txtArticle);
             myImage = itemView.findViewById(R.id.imgArticle);
             myButton = itemView.findViewById(R.id.btnAdd);
+            myPrice = itemView.findViewById(R.id.txtPrice);
             this.onNoteListener = onNoteListener;
             myButton.setOnClickListener(this);
         }

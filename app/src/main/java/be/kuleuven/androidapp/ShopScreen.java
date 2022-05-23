@@ -43,6 +43,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     RecyclerView recyclerView;
 
     ArrayList<String> s1 = new ArrayList<>();
+    ArrayList<Double> price = new ArrayList<>();
 
     ArrayList<Integer> images = new ArrayList<>();
 
@@ -84,6 +85,8 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                                 JSONObject curObject = response.getJSONObject(index);
                                 String curCat = curObject.getString("name");
                                 s1.add(curCat);
+                                double curPrice = curObject.getDouble("price");
+                                price.add(curPrice);
                                 index++;
                                 System.out.println(curCat);
                             } catch (JSONException e) {
@@ -130,7 +133,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     }
 
     public void setAdapter() {
-        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, this);
+        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, price, this);
         recyclerView.setAdapter(mySecondAdapter);
     }
 
