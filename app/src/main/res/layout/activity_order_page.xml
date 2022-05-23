@@ -11,32 +11,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="popTimePicker"
-        android:text="Button"
+        android:text="Select Time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        android:text="Select Date"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTime" />
 
     <Button
-        android:id="@+id/datePicker"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="63dp"
-        android:text="JAN 01 2022"
+        android:id="@+id/datePickerButton"
         style="?android:spinnerStyle"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:onClick="OpenDatePicker"
+        android:text="AJN 01 2022"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTime"
-        android:onClick="openDatePicker" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,17 +2,14 @@ package be.kuleuven.androidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class OrderPage extends AppCompatActivity {
@@ -25,9 +22,9 @@ public class OrderPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
-        timeButton = (Button) findViewById(R.id.btnTime);
         initDatePicker();
-        dateButton = findViewById(R.id.datePicker);
+        dateButton = findViewById(R.id.datePickerButton);
+        timeButton = (Button) findViewById(R.id.btnTime);
         dateButton.setText(getTodaysDate());
     }
 
@@ -46,18 +43,60 @@ public class OrderPage extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
+                dateButton.setText(date);
             }
         };
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
     }
 
-    public String makeDateString(int day, int month, int year){
-        return month + " " + day + " " + year;
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        if(month == 1){
+            return "JAN";
+        }
+        if(month == 2){
+            return "FEB";
+        }
+        if(month == 3){
+            return "MAR";
+        }
+        if(month == 4){
+            return "APR";
+        }
+        if(month == 5){
+            return "MAY";
+        }
+        if(month == 6){
+            return "JUN";
+        }
+        if(month == 7){
+            return "JUL";
+        }
+        if(month == 8){
+            return "AUG";
+        }
+        if(month == 9){
+            return "SEP";
+        }
+        if(month == 10){
+            return "OCT";
+        }
+        if(month == 11){
+            return "NOV";
+        }
+        if(month == 12){
+            return "DEC";
+        }
+        else{
+            return "JAN";
+        }
     }
 
     public void popTimePicker(View view) {
@@ -66,13 +105,12 @@ public class OrderPage extends AppCompatActivity {
              minute = selectedMinute;
              timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
         };
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour, minute, true);
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
 
-    public void openDatePicker(View view) {
+    public void OpenDatePicker(View view) {
         datePickerDialog.show();
     }
 }

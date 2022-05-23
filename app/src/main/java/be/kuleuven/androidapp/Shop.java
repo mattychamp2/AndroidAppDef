@@ -60,7 +60,7 @@ public class Shop extends AppCompatActivity {
         });
     }
 
-    private void openFragment(Fragment fragment) {
+    public void openFragment(Fragment fragment) {
         Log.d(TAG, "openFragment: ");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //this is a helper class that replaces the container with the fragment. You can replace or add fragments.

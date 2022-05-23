@@ -139,6 +139,7 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        update();
                     }
                 },
                 new Response.ErrorListener() {
@@ -149,5 +150,9 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
         );
         requestQueue.add(submitRequest);
         Toast.makeText(getContext(), "removed", Toast.LENGTH_SHORT).show();
+    }
+
+    public void update(){
+
     }
 }

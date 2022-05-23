@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView password;
     private RequestQueue requestQueue;
     private TextView txtResponse;
+    private static String loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
                                     login=true;
+                                    loggedUser = dbUsername;
                                 }
                                 i++;
                             }
@@ -104,5 +106,9 @@ public class MainActivity extends AppCompatActivity {
     public void createAccBtn(View caller){
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
+    }
+
+    public static String getLoggedUser(){
+        return loggedUser;
     }
 }
