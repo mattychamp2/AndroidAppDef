@@ -58,7 +58,7 @@
         android:layout_width="215dp"
         android:layout_height="92dp"
         android:layout_marginBottom="100dp"
-        android:onClick="onBtnOrderPress"
+        android:onClick="insertOrder"
         android:text="Place Order"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

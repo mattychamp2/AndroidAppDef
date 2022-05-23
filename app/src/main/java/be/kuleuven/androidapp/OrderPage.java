@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +34,7 @@ public class OrderPage extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private TextView totalPrice;
     private RequestQueue requestQueue;
+    private String itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class OrderPage extends AppCompatActivity {
                         while (!finished) {
                             try {
                                 JSONObject curObject = response.getJSONObject(index);
+
                                 totalPrice.setText("€" + String.format("%.2f", curObject.getDouble("pricesum")) + " total price");
                                 index++;
                             } catch (JSONException e) {
@@ -164,7 +167,7 @@ public class OrderPage extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void onBtnOrderPress(View caller){
+    public void emptyCart(View caller){
         requestQueue = Volley.newRequestQueue(this);
         String requestURL = "https://studev.groept.be/api/a21pt115/emptyCart";
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
@@ -174,7 +177,6 @@ public class OrderPage extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response)
                     {
-
                     }
                 },
                 new Response.ErrorListener()
@@ -188,5 +190,86 @@ public class OrderPage extends AppCompatActivity {
         requestQueue.add(submitRequest);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void makeOrderItems(){
+        requestQueue = Volley.newRequestQueue(this);
+        String requestURL = "https://studev.groept.be/api/a21pt115/getCart";
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response)
+                    {
+                        try {
+                            int i = 0;
+                            while (i< response.length()) {
+                                JSONObject curObject = response.getJSONObject(i);
+                                String item = curObject.getString("item");
+                                String quantity = curObject.getString("quantity");
+                                itemList = itemList + item + "_-_" + quantity;
+                                i++;
+                            }
+                            System.out.println(itemList);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(OrderPage.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+    }
+
+    public String makeOrderUrl(){
+        String total = "";
+        String totalTextView = totalPrice.getText().toString();
+        for  (int i=0; i<totalTextView.length(); i++){
+            char element = totalTextView.charAt(i);
+            if (Character.isDigit(element) || element == '.'){
+                total = total + String.valueOf(element);
+            }
+        }
+        String user = MainActivity.getLoggedUser();
+        itemList = "";
+        makeOrderItems();
+        //(Username, Orders, TotalPrice)
+        String url = "https://studev.groept.be/api/a21pt115/insertOrder/"+user+"/"+itemList+"/"+total;
+        System.out.println(url);
+        return url;
+    }
+
+    public void insertOrder(View v){
+        requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, makeOrderUrl(), null,
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response)
+                    {
+                        Toast.makeText(OrderPage.this, "Order is being processed", Toast.LENGTH_SHORT).show();
+                        emptyCart(v);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(OrderPage.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
     }
 }
