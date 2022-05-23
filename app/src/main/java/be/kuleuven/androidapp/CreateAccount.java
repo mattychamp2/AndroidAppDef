@@ -57,36 +57,61 @@ public class CreateAccount extends AppCompatActivity {
         return postUrl + "/" + un + "/" + pw + "/" + ln + "/" + fn;
     }
 
-    public void createAccount(View v) {
-        requestQueue = Volley.newRequestQueue(this);
 
-        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, getInfo(), null,
+
+    public void existingUsername(View v){
+        requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, checkUnUrl, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        String givenPw = password.getText().toString();
-                        String givenPwRp = passwordRepeat.getText().toString();
-                        String fn = firstName.getText().toString();
-                        String ln = lastName.getText().toString();
-                        String un = username.getText().toString();
+                        try {
 
-                        if (checkRequirements() && !existingUsername(v)){
-                            Toast.makeText(CreateAccount.this, "Account successfully created", Toast.LENGTH_SHORT).show();
+                            String un = username.getText().toString();
+                            int i = 0;
+                            while (i < response.length()) {
+                                sameUn = false;
+                                JSONObject curObject = response.getJSONObject(i);
+                                String dbUsername = curObject.getString("Username");
+
+                                if (un.equals(dbUsername)) {
+                                    sameUn = true;
+                                    Toast.makeText(CreateAccount.this, "This username already exists", Toast.LENGTH_SHORT).show();
+                                    System.out.println(sameUn);
+                                    break;
+                                }
+                                i++;
+                            }
+                            if (!sameUn){
+                                checkRequirements(v);
+                                if (checkRequirements(v)){
+                                    createAccount(v);
+                                }
+                            }
+                            //System.out.println(sameUn);
+
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
                         }
                     }
                 },
 
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CreateAccount.this, "Could not create account", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Server Error", Toast.LENGTH_SHORT).show();
                     }
                 }
+
         );
+
         requestQueue.add(submitRequest);
+        //System.out.println(sameUn);
     }
 
-    public boolean checkRequirements(){
+    public boolean checkRequirements(View v){
         String givenPw = password.getText().toString();
         String givenPwRp = passwordRepeat.getText().toString();
         String fn = firstName.getText().toString();
@@ -108,54 +133,43 @@ public class CreateAccount extends AppCompatActivity {
             Toast.makeText(CreateAccount.this, "No spaces allowed in username", Toast.LENGTH_SHORT).show();
             check = false;
         }
+
+        if (ln.contains(" ")){
+            Toast.makeText(CreateAccount.this, "Write your last name in one word or use underscores", Toast.LENGTH_SHORT).show();
+            check = false;
+        }
+
+
+
         return check;
     }
 
-    public boolean existingUsername(View v){
+    public void createAccount(View v) {
         requestQueue = Volley.newRequestQueue(this);
-        sameUn = false;
-        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, checkUnUrl, null,
+
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, getInfo(), null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        try {
 
-                            String un = username.getText().toString();
-                            int i = 0;
-                            while (i < response.length()) {
-
-                                JSONObject curObject = response.getJSONObject(i);
-                                String dbUsername = null;
-                                dbUsername = curObject.getString("Username");
-
-                                if (un.equals(dbUsername)) {
-                                    sameUn = true;
-                                    Toast.makeText(CreateAccount.this, "This username already exists", Toast.LENGTH_SHORT).show();
-                                    break;
-                                }
-                                i++;
-                            }
+                        existingUsername(v);
+                        if (checkRequirements(v)){
+                            Toast.makeText(CreateAccount.this, "Account successfully created", Toast.LENGTH_SHORT).show();
                         }
-                        catch (JSONException e){
-                            e.printStackTrace();
-                            }
                     }
                 },
-
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CreateAccount.this, "Server Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Could not create account, try again later", Toast.LENGTH_SHORT).show();
                     }
                 }
-
         );
-
         requestQueue.add(submitRequest);
-        System.out.println(sameUn);
-        return sameUn;
     }
+
+
 }
 
 
