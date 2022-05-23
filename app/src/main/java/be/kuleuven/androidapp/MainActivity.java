@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
                                 String givenPassword = password.getText().toString();
                                 String dbPassword = curObject.getString("Password");
 
-                                if (givenUsername.equals(dbUsername) && givenPassword.equals(dbPassword)){
+                                String givenPassWordHashed = PwHasher.getMd5(givenPassword);
+
+                                if (givenUsername.equals(dbUsername) && givenPassWordHashed.equals(dbPassword)){
                                     login=true;
                                     loggedUser = dbUsername;
                                 }

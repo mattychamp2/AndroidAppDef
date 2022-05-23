@@ -57,10 +57,10 @@ public class CreateAccount extends AppCompatActivity {
         String ln = lastName.getText().toString();
         String un = username.getText().toString();
         String pw = password.getText().toString();
+        String pwHashed = PwHasher.getMd5(pw);
         //(Username, Password, LastName, FirstName)
-        return postUrl + "/" + un + "/" + pw + "/" + ln + "/" + fn;
+        return postUrl + "/" + un + "/" + pwHashed + "/" + ln + "/" + fn;
     }
-
 
 
     public void existingUsername(View v){
