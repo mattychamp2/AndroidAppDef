@@ -20,14 +20,16 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
     ArrayList<String> data1;
     ArrayList<Integer> data2;
     ArrayList<Bitmap> images;
+    ArrayList<Double> prices;
     Context context;
     private OnNoteListener mOnNoteListener;
 
-    public MyThirdAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> s2, ArrayList<Bitmap> img, OnNoteListener onNoteListener){
+    public MyThirdAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> s2, ArrayList<Bitmap> img, ArrayList<Double> pric, OnNoteListener onNoteListener){
         context = ct;
         data1 = s1;
         data2 = s2;
         images = img;
+        prices = pric;
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -39,12 +41,13 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
         return new MyViewHolder(view, mOnNoteListener);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText1.setText(data1.get(position));
         holder.myText2.setText(data2.get(position) + "x");
         holder.myImage.setImageBitmap(images.get(position));
+        holder.myPrice.setText("€" + String.format("%.2f", prices.get(position)));
         holder.myBtn.callOnClick();
     }
 
@@ -55,7 +58,7 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView myText1, myText2;
+        TextView myText1, myText2, myPrice;
         ImageView myImage;
         Button myBtn;
         OnNoteListener onNoteListener;
@@ -66,6 +69,7 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
             myText2 = itemView.findViewById(R.id.txtQty);
             myImage = itemView.findViewById(R.id.imgCartArticle);
             myBtn = itemView.findViewById(R.id.btnRemove);
+            myPrice = itemView.findViewById(R.id.txtPriceInCart);
             this.onNoteListener = onNoteListener;
             myBtn.setOnClickListener(this);
         }

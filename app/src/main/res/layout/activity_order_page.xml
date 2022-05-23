@@ -10,38 +10,60 @@
         android:id="@+id/btnTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:onClick="popTimePicker"
         android:text="Select Time"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/txtTime"
+        android:id="@+id/txtTotalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Select Date"
+        android:layout_marginTop="25dp"
+        android:text="Price here"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTime" />
+        app:layout_constraintStart_toStartOf="@+id/datePickerButton"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
     <Button
         android:id="@+id/datePickerButton"
         style="?android:spinnerStyle"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:onClick="OpenDatePicker"
-        android:text="AJN 01 2022"
+        android:text="JAN 01 2022"
         android:textColor="@color/black"
         android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/btnTime"
+        app:layout_constraintTop_toBottomOf="@+id/btnTime" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="When would you like to pick up your order?"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPlaceOrder"
+        android:layout_width="215dp"
+        android:layout_height="92dp"
+        android:layout_marginBottom="100dp"
+        android:onClick="onBtnOrderPress"
+        android:text="Place Order"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

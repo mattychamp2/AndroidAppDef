@@ -2,30 +2,80 @@ package be.kuleuven.androidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class OrderPage extends AppCompatActivity {
 
-    private Button timeButton, dateButton;
+    private Button timeButton, dateButton, order;
     int hour, minute;
     private DatePickerDialog datePickerDialog;
+    private TextView totalPrice;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
         initDatePicker();
+        order = findViewById(R.id.btnOrder);
         dateButton = findViewById(R.id.datePickerButton);
         timeButton = (Button) findViewById(R.id.btnTime);
         dateButton.setText(getTodaysDate());
+        totalPrice = findViewById(R.id.txtTotalPrice);
+        queryTotalPrice();
+    }
+
+    private void queryTotalPrice() {
+        requestQueue = Volley.newRequestQueue(this);
+        String requestURL = "https://studev.groept.be/api/a21pt115/cartValue";
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+                new Response.Listener<JSONArray>() {
+                    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        boolean finished = false;
+                        int index = 0;
+                        while (!finished) {
+                            try {
+                                JSONObject curObject = response.getJSONObject(index);
+                                totalPrice.setText("€" + String.format("%.2f", curObject.getDouble("pricesum")) + " total price");
+                                index++;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                finished = true;
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
     }
 
     private String getTodaysDate() {
@@ -112,5 +162,31 @@ public class OrderPage extends AppCompatActivity {
 
     public void OpenDatePicker(View view) {
         datePickerDialog.show();
+    }
+
+    public void onBtnOrderPress(View caller){
+        requestQueue = Volley.newRequestQueue(this);
+        String requestURL = "https://studev.groept.be/api/a21pt115/emptyCart";
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+                //TODO: Possibly make this a lambda expression if we still understand what happens.
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response)
+                    {
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

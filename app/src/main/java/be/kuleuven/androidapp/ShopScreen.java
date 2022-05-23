@@ -4,16 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.ActionMenuView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,8 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnNoteListener {
 
@@ -43,7 +33,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     RecyclerView recyclerView;
 
     ArrayList<String> s1 = new ArrayList<>();
-    ArrayList<Double> price = new ArrayList<>();
+    ArrayList<Double> pricelist = new ArrayList<>();
 
     ArrayList<Integer> images = new ArrayList<>();
 
@@ -86,13 +76,12 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                                 String curCat = curObject.getString("name");
                                 s1.add(curCat);
                                 double curPrice = curObject.getDouble("price");
-                                price.add(curPrice);
+                                pricelist.add(curPrice);
                                 index++;
-                                System.out.println(curCat);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 finished = true;
-                                System.out.println(s1 + "na de db loop");
+                                System.out.println(pricelist + "hiere kijken");
                                 setAdapter();
                             }
                         }
@@ -124,7 +113,8 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
 
     private String makeURL2(){
         String name = s1.get(itemID);
-        return "https://studev.groept.be/api/a21pt115/insertTest/" + name;
+        String price = Double.toString(pricelist.get(itemID));
+        return "https://studev.groept.be/api/a21pt115/insertTest/" + name + "/" + price;
     }
 
     private String makeURLinc(){
@@ -132,8 +122,13 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
         return "https://studev.groept.be/api/a21pt115/increaseItemInCart/" + name;
     }
 
+    private String makeURLincPrice(){
+        String name = s1.get(itemID);
+        return "https://studev.groept.be/api/a21pt115/increasePriceInCart/" + name;
+    }
+
     public void setAdapter() {
-        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, price, this);
+        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, pricelist, this);
         recyclerView.setAdapter(mySecondAdapter);
     }
 
@@ -172,6 +167,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
 
     private void increase() {
         postDataUsingVolley(makeURLinc());
+        postDataUsingVolley(makeURLincPrice());
     }
 
     private void checkCart() {

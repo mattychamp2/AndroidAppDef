@@ -44,7 +44,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText.setText(data1.get(position));
         holder.myImage.setImageResource((images.get(position)));
-        holder.myPrice.setText("€" + String.format("%.1f", data2.get(position)) + "0");
+        holder.myPrice.setText("€" + String.format("%.2f", data2.get(position)));
         holder.myButton.callOnClick();
     }
 

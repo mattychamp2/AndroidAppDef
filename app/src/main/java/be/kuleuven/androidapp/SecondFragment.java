@@ -42,6 +42,7 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
     ArrayList<String> s1 = new ArrayList<>();
     ArrayList<Integer> s2 = new ArrayList<>();
     ArrayList<String> rawImages = new ArrayList<>();
+    ArrayList<Double> prices = new ArrayList<>();
     ArrayList<Bitmap> images = new ArrayList<>();
     private int count;
     RecyclerView recyclerView;
@@ -69,6 +70,8 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
                                 s2.add(curQty);
                                 String curRIm = curObject.getString("CategoryImage");
                                 rawImages.add(curRIm);
+                                Double curPrice = curObject.getDouble("price");
+                                prices.add(curPrice);
                                 index++;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -107,7 +110,7 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
     }
 
     public void setAdapter() {
-        MyThirdAdapter myThirdAdapter = new MyThirdAdapter(getContext(), s1, s2, images, this::onNoteClick);
+        MyThirdAdapter myThirdAdapter = new MyThirdAdapter(getContext(), s1, s2, images, prices, this::onNoteClick);
         recyclerView.setAdapter(myThirdAdapter);
     }
 

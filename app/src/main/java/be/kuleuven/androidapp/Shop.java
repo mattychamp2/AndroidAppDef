@@ -70,27 +70,6 @@ public class Shop extends AppCompatActivity {
     }
 
     public void setBtnOrder(View caller){
-        requestQueue = Volley.newRequestQueue(this);
-        String requestURL = "https://studev.groept.be/api/a21pt115/emptyCart";
-        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-                //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response)
-                    {
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                    }
-                }
-        );
-        requestQueue.add(submitRequest);
         Intent intent = new Intent(this, OrderPage.class);
         startActivity(intent);
     }
