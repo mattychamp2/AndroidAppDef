@@ -204,7 +204,20 @@ public class OrderPage extends AppCompatActivity {
             orderToPass = orderToPass + SecondFragment.getQty().get(i) + "x" + SecondFragment.getCart().get(i) + ",";
         }
         String userToPass = MainActivity.getLoggedUser();
-        if(hour > 7 && hour < 17) {
+        Calendar cal = Calendar.getInstance();
+        if(hour < 7 || hour > 17) {
+            Toast.makeText(OrderPage.this, "Sorry, the bakery is shut at the selected time", Toast.LENGTH_SHORT).show();
+        }
+        else if(pickupYear<cal.get(Calendar.YEAR)){
+            Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
+        }
+        else if(pickupMonth<cal.get(Calendar.MONTH)+1){
+            Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
+        }
+        else if (pickupDay<cal.get(Calendar.DAY_OF_MONTH)){
+            Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
+        }
+        else{
             String urlToPass = "https://studev.groept.be/api/a21pt115/pushOrder/" + dateToPass + "/" + hourToPass + "/" + orderToPass + "/" + priceToPass + "/" + userToPass;
             requestQueue = Volley.newRequestQueue(this);
             JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, urlToPass, null,
@@ -224,9 +237,6 @@ public class OrderPage extends AppCompatActivity {
                     }
             );
             requestQueue.add(submitRequest);
-        }
-        else{
-            Toast.makeText(OrderPage.this, "Sorry, the bakery is shut at the selected time", Toast.LENGTH_SHORT).show();
         }
     }
 }
