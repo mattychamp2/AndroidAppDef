@@ -78,7 +78,7 @@ public class OrderPage extends AppCompatActivity {
                                 }
 
                                 priceToPass = String.format("%.2f", priceSum);
-                                totalPrice.setText("€" + String.format("%.2f", curObject.getDouble("pricesum")) + " total price");
+                                totalPrice.setText("€" + String.format("%.2f", priceSum) + " total price");
                                 index++;
                             } catch (JSONException e) {
                                 e.printStackTrace();
