@@ -93,7 +93,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        //txtResponse.setText( error.getLocalizedMessage() );
+                        Toast.makeText(ShopScreen.this, "Password and username do not match", Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -226,7 +226,7 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        //txtResponse.setText( error.getLocalizedMessage() );
+                        Toast.makeText(ShopScreen.this, "Password and username do not match", Toast.LENGTH_LONG).show();
                     }
                 }
         );

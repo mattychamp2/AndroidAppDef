@@ -83,7 +83,6 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //txtResponse.setText( error.getLocalizedMessage() );
                     }
                 }
         );

@@ -90,6 +90,7 @@ public class OrderPage extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(OrderPage.this, "Password and username do not match", Toast.LENGTH_LONG).show();
                     }
                 }
         );

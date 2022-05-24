@@ -188,7 +188,7 @@ public class CreateAccount extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CreateAccount.this, "Server Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
                     }
                 }
 
