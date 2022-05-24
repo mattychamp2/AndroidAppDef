@@ -13,7 +13,7 @@ public class PwHasher
         try
         {
 
-// invoking the static getInstance() method of the MessageDigest class
+// invoking the static getInstance() method of the MessageDigest class (message digest is hash functie)
 // Notice it has MD5 in its parameter.
             MessageDigest msgDst = MessageDigest.getInstance("MD5");
 
@@ -21,7 +21,7 @@ public class PwHasher
 // from an input digest() and it returns an array of byte
             byte[] msgArr = msgDst.digest(input.getBytes());
 
-// getting signum representation from byte array msgArr
+// getting signum representation from byte array msgArr (sign functie)
             BigInteger bi = new BigInteger(1, msgArr);
 
 // Converting into hex value
