@@ -2,6 +2,7 @@ package be.kuleuven.androidapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,11 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
 
     ArrayList<String> data1;
     ArrayList<Double> data2;
-    ArrayList<Integer> images;
+    ArrayList<Bitmap> images;
     Context context;
     private OnNoteListener mOnNoteListener;
 
-    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> img, ArrayList<Double> s2, OnNoteListener onNoteListener){
+    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, ArrayList<Double> s2, OnNoteListener onNoteListener){
         context = ct;
         data1 = s1;
         data2 = s2;
@@ -43,7 +44,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText.setText(data1.get(position));
-        holder.myImage.setImageResource((images.get(position)));
+        holder.myImage.setImageBitmap((images.get(position)));
         holder.myPrice.setText("€" + String.format("%.2f", data2.get(position)));
         holder.myButton.callOnClick();
     }

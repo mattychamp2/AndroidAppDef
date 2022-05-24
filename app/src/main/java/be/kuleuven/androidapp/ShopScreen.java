@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -34,8 +37,9 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
 
     ArrayList<String> s1 = new ArrayList<>();
     ArrayList<Double> pricelist = new ArrayList<>();
+    ArrayList<String> imagesEncoded = new ArrayList<>();
 
-    ArrayList<Integer> images = new ArrayList<>();
+    ArrayList<Bitmap> images = new ArrayList<>();
 
     ArrayList<String> checkCartItems = new ArrayList<>();
     ArrayList<Integer> checkCartQty = new ArrayList<>();
@@ -51,11 +55,11 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
         setContentView(R.layout.activity_shop_screen);
         addToCartButton = findViewById(R.id.btnAdd);
 
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
-        images.add(R.drawable.breadpic);
+//        images.add(R.drawable.breadpic);
+//        images.add(R.drawable.breadpic);
+//        images.add(R.drawable.breadpic);
+//        images.add(R.drawable.breadpic);
+//        images.add(R.drawable.breadpic);
 
         requestQueue = Volley.newRequestQueue(this);
         String requestURL = makeURL();
@@ -77,10 +81,13 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
                                 s1.add(curCat);
                                 double curPrice = curObject.getDouble("price");
                                 pricelist.add(curPrice);
+                                String curImage = curObject.getString("ItemImage");
+                                imagesEncoded.add(curImage);
                                 index++;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 finished = true;
+                                decode();
                                 System.out.println(pricelist + "hiere kijken");
                                 setAdapter();
                             }
@@ -106,6 +113,15 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    public void decode() {
+        for (int i = 0; i < s1.size(); i++) {
+            //System.out.println(s1.get(i));
+            byte[] decodedString = Base64.decode(imagesEncoded.get(i), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            images.add(decodedByte);
+        }
+    }
+
     private String makeURL() {
         String cat = FirstFragment.getArrayList().get(FirstFragment.getCategoryID());
         return "https://studev.groept.be/api/a21pt115/getItems/" + cat;
@@ -128,7 +144,8 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
     }
 
     public void setAdapter() {
-        MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, pricelist, this);
+        //MySecondAdapter mySecondAdapter = new MySecondAdapter(this, s1, images, pricelist, this);
+        MySecondAdapter mySecondAdapter = new MySecondAdapter(this,s1,images,pricelist,this);
         recyclerView.setAdapter(mySecondAdapter);
     }
 
