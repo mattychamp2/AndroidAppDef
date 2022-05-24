@@ -204,28 +204,29 @@ public class OrderPage extends AppCompatActivity {
             orderToPass = orderToPass + SecondFragment.getQty().get(i) + "x" + SecondFragment.getCart().get(i) + ",";
         }
         String userToPass = MainActivity.getLoggedUser();
-        String urlToPass = "https://studev.groept.be/api/a21pt115/pushOrder/" + dateToPass + "/" + hourToPass + "/" + orderToPass + "/" + priceToPass + "/" + userToPass;
-        requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, urlToPass, null,
-                //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response)
-                    {
-                        Toast.makeText(OrderPage.this, "Order is being processed", Toast.LENGTH_SHORT).show();
-                        emptyCart(v);
+        if(hour > 7 && hour < 17) {
+            String urlToPass = "https://studev.groept.be/api/a21pt115/pushOrder/" + dateToPass + "/" + hourToPass + "/" + orderToPass + "/" + priceToPass + "/" + userToPass;
+            requestQueue = Volley.newRequestQueue(this);
+            JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, urlToPass, null,
+                    //TODO: Possibly make this a lambda expression if we still understand what happens.
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Toast.makeText(OrderPage.this, "Thank you for you order", Toast.LENGTH_SHORT).show();
+                            emptyCart(v);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(OrderPage.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Toast.makeText(OrderPage.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-        requestQueue.add(submitRequest);
+            );
+            requestQueue.add(submitRequest);
+        }
+        else{
+            Toast.makeText(OrderPage.this, "Sorry, the bakery is shut at the selected time", Toast.LENGTH_SHORT).show();
+        }
     }
 }

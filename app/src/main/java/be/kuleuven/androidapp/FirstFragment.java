@@ -42,26 +42,27 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
     ArrayList<String> s2 = new ArrayList<>();
     ArrayList<Bitmap> images = new ArrayList<>();
 
-    public FirstFragment(){
+    public FirstFragment() {
         // require a empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /*s3 = new ArrayList<>();
+        s1 = new ArrayList<>();
+        s2 = new ArrayList<>();
+        images = new ArrayList<>();*/
 
-        requestQueue = Volley.newRequestQueue( getActivity() );
+        requestQueue = Volley.newRequestQueue(getActivity());
         String requestURL = "https://studev.groept.be/api/a21pt115/getCategories";
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response)
-                    {
+                    public void onResponse(JSONArray response) {
                         boolean finished = false;
                         int index = 0;
-                        while(!finished){
+                        while (!finished) {
                             try {
                                 JSONObject curObject = response.getJSONObject(index);
                                 String curCat = curObject.getString("ProductFamily");
@@ -79,11 +80,9 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                         }
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
                         //txtResponse.setText( error.getLocalizedMessage() );
                     }
                 }
@@ -91,14 +90,12 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
         String requestURL1 = "https://studev.groept.be/api/a21pt115/getCategoryImage";
         JsonArrayRequest submitRequest1 = new JsonArrayRequest(Request.Method.GET, requestURL1, null,
                 //TODO: Possibly make this a lambda expression if we still understand what happens.
-                new Response.Listener<JSONArray>()
-                {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response)
-                    {
+                    public void onResponse(JSONArray response) {
                         boolean finished = false;
                         int index = 0;
-                        while(!finished){
+                        while (!finished) {
                             try {
                                 //System.out.println(response);
                                 JSONObject curObject = response.getJSONObject(index);
@@ -116,11 +113,9 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
                         }
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
                         //txtResponse.setText( error.getLocalizedMessage() );
                     }
                 }
@@ -146,17 +141,16 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
         return rootView;
     }
 
-    public void decode(){
-        for(int i = 0; i < s1.size(); i++){
+    public void decode() {
+        for (int i = 0; i < s1.size(); i++) {
             System.out.println(s1.get(i));
-            byte[] decodedString = Base64.decode(s1.get(i),Base64.DEFAULT);
+            byte[] decodedString = Base64.decode(s1.get(i), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             images.add(decodedByte);
         }
     }
 
-    public void setAdapter(){
-
+    public void setAdapter() {
         MyAdapter myAdapter = new MyAdapter(getContext(), s2, images, this);
         recyclerView.setAdapter(myAdapter);
     }
@@ -173,14 +167,14 @@ public class FirstFragment extends Fragment implements MyAdapter.OnNoteListener 
         categoryID = position;
         Intent intent = new Intent(getContext(), ShopScreen.class);
         startActivity(intent);
-        Toast.makeText(getContext(),Integer.toString(position),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
     }
 
-    public static int getCategoryID(){
+    public static int getCategoryID() {
         return categoryID;
     }
 
-    public static ArrayList<String> getArrayList(){
+    public static ArrayList<String> getArrayList() {
         return s3;
     }
 }
