@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.CharArrayWriter;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -36,6 +37,8 @@ public class OrderPage extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String itemList;
     private static String priceToPass;
+    private boolean birthday;
+    private double discount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,10 @@ public class OrderPage extends AppCompatActivity {
         timeButton = (Button) findViewById(R.id.btnTime);
         dateButton.setText(getTodaysDate());
         totalPrice = findViewById(R.id.txtTotalPrice);
-        queryTotalPrice();
+        discount = 0f;
+        checkBirthday();
+        System.out.println(discount);
+        //queryTotalPrice();
     }
 
     private void queryTotalPrice() {
@@ -63,7 +69,15 @@ public class OrderPage extends AppCompatActivity {
                         while (!finished) {
                             try {
                                 JSONObject curObject = response.getJSONObject(index);
-                                priceToPass = String.format("%.2f", curObject.getDouble("pricesum"));
+                                double priceSum = curObject.getDouble("pricesum");
+
+                                if (birthday){
+                                    priceSum = priceSum-discount*priceSum;
+                                    System.out.println(priceSum);
+                                    Toast.makeText(OrderPage.this, "Happy birthday! Enjoy a "+(discount*100d)+"% discount!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                priceToPass = String.format("%.2f", priceSum);
                                 totalPrice.setText("€" + String.format("%.2f", curObject.getDouble("pricesum")) + " total price");
                                 index++;
                             } catch (JSONException e) {
@@ -211,10 +225,11 @@ public class OrderPage extends AppCompatActivity {
         else if(pickupYear<cal.get(Calendar.YEAR)){
             Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
         }
-        else if(pickupMonth<cal.get(Calendar.MONTH)+1){
+        else if((pickupMonth<cal.get(Calendar.MONTH)+1) && (pickupYear==cal.get(Calendar.YEAR))){
             Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
         }
-        else if (pickupDay<cal.get(Calendar.DAY_OF_MONTH)){
+        else if ((pickupDay<cal.get(Calendar.DAY_OF_MONTH)) && (pickupMonth==cal.get(Calendar.MONTH)+1)
+                && (pickupYear==cal.get(Calendar.YEAR))){
             Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();
         }
         else{
@@ -239,4 +254,86 @@ public class OrderPage extends AppCompatActivity {
             requestQueue.add(submitRequest);
         }
     }
+
+    public void checkBirthday() {
+        requestQueue = Volley.newRequestQueue(this);
+        String user = MainActivity.getLoggedUser();
+        String url = "https://studev.groept.be/api/a21pt115/getSpecBirthday/"+user;
+
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            String today = todayDayMonth();
+                            JSONObject curObject = response.getJSONObject(0);
+                            String birthdate = curObject.getString("Birthdate");
+                            char[] charBirthDate = birthdate.toCharArray();
+                            CharArrayWriter birthDayMonth = new CharArrayWriter();
+                            int i = 0;
+                            CharArrayWriter birthYear = new CharArrayWriter();
+                            for (char c: charBirthDate){
+                                if (c=='-'){
+                                    i++;
+                                }
+
+                                if (i<2){
+                                    birthDayMonth.append(c);
+                                }
+                                else{
+                                    if (c!='-'){
+                                        birthYear.append(c);
+                                    }
+                                }
+                            }
+                            String ageString = birthYear.toString();
+                            int birthYearInt = Integer.parseInt(ageString);
+                            String birthDayMonthstr = birthDayMonth.toString();
+                            if (birthDayMonthstr.equals(today)){
+                                birthday=true;
+                                //discount is leeftijd in percent
+                                int currYear = currentYear();
+                                discount = (currYear - birthYearInt)/100d;
+                                System.out.println(discount);
+                            }
+                        }
+                        catch(JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(OrderPage.this, "Server error, try again later", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+    }
+
+    public String todayDayMonth(){
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String result = day+"-"+month;
+        return result;
+    }
+
+    public int currentYear(){
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        return year;
+    }
+
+    public void btnOrder(View v){
+
+        System.out.println("verjaardag: " + birthday);
+        System.out.println(discount);
+        queryTotalPrice();
+        insertOrder(v);
+    }
+
 }

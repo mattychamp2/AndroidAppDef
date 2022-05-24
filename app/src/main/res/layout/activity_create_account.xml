@@ -19,8 +19,8 @@
 
     <EditText
         android:id="@+id/firstName"
-        android:layout_width="101dp"
-        android:layout_height="48dp"
+        android:layout_width="93dp"
+        android:layout_height="46dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="13dp"
         android:hint="First name"
@@ -29,8 +29,8 @@
 
     <EditText
         android:id="@+id/lastName"
-        android:layout_width="122dp"
-        android:layout_height="55dp"
+        android:layout_width="125dp"
+        android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:hint="Last name"
@@ -39,9 +39,9 @@
 
     <EditText
         android:id="@+id/userName"
-        android:layout_width="206dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="17dp"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:hint="Choose a username"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,21 +49,21 @@
 
     <EditText
         android:id="@+id/Password"
-        android:layout_width="732dp"
-        android:layout_height="191dp"
+        android:layout_width="696dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:hint="Pick a password with at least 7 characters which contains letters, numbers and non-letters"
+        android:layout_marginTop="4dp"
+        android:hint="Pick a password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintTop_toBottomOf="@+id/pwReq" />
 
     <EditText
         android:id="@+id/Password2"
-        android:layout_width="227dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="13dp"
+        android:layout_width="212dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:hint="Repeat your password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,9 +74,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:onClick="existingUsername"
         android:text="Create account"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        style="?android:spinnerStyle"
+        android:layout_width="243dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="openDatePicker"
+        android:text="JAN 01 2020"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthDate" />
+
+    <TextView
+        android:id="@+id/pwReq"
+        android:layout_width="373dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Pick a password with at least 7 characters which contains letters, numbers and non-letters:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+    <TextView
+        android:id="@+id/birthDate"
+        android:layout_width="232dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:hint="Select your birthdate"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
