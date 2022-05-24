@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
                             else{
                                 Toast.makeText(MainActivity.this, "Password and username do not match", Toast.LENGTH_LONG).show();
                             }
-
-
                         }
                         catch( JSONException e )
                         {

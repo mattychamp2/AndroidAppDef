@@ -70,7 +70,6 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-
                             String un = username.getText().toString();
                             int i = 0;
                             while (i < response.length()) {

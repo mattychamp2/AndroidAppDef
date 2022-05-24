@@ -206,7 +206,7 @@ public class OrderPage extends AppCompatActivity {
         String userToPass = MainActivity.getLoggedUser();
         Calendar cal = Calendar.getInstance();
         if(hour < 7 || hour > 17) {
-            Toast.makeText(OrderPage.this, "Sorry, the bakery is shut at the selected time", Toast.LENGTH_SHORT).show();
+            Toast.makeText(OrderPage.this, "Sorry, the bakery is closed at the selected time", Toast.LENGTH_SHORT).show();
         }
         else if(pickupYear<cal.get(Calendar.YEAR)){
             Toast.makeText(OrderPage.this, "That's in the past", Toast.LENGTH_SHORT).show();

@@ -55,12 +55,6 @@ public class ShopScreen extends AppCompatActivity implements MySecondAdapter.OnN
         setContentView(R.layout.activity_shop_screen);
         addToCartButton = findViewById(R.id.btnAdd);
 
-//        images.add(R.drawable.breadpic);
-//        images.add(R.drawable.breadpic);
-//        images.add(R.drawable.breadpic);
-//        images.add(R.drawable.breadpic);
-//        images.add(R.drawable.breadpic);
-
         requestQueue = Volley.newRequestQueue(this);
         String requestURL = makeURL();
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
