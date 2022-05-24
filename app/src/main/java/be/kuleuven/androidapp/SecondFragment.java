@@ -52,6 +52,11 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        s1 = new ArrayList<>();
+        s2 = new ArrayList<>();
+        rawImages = new ArrayList<>();
+        prices = new ArrayList<>();
+        images = new ArrayList<>();
         count = 0;
         requestQueue = Volley.newRequestQueue(getActivity());
         String requestURL = "https://studev.groept.be/api/a21pt115/getCartForFragment";
