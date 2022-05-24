@@ -39,8 +39,8 @@ import org.json.JSONObject;
 public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener {
 
     private RequestQueue requestQueue;
-    ArrayList<String> s1 = new ArrayList<>();
-    ArrayList<Integer> s2 = new ArrayList<>();
+    static ArrayList<String> s1 = new ArrayList<>();
+    static ArrayList<Integer> s2 = new ArrayList<>();
     ArrayList<String> rawImages = new ArrayList<>();
     ArrayList<Double> prices = new ArrayList<>();
     ArrayList<Bitmap> images = new ArrayList<>();
@@ -155,7 +155,15 @@ public class SecondFragment extends Fragment implements MyAdapter.OnNoteListener
         Toast.makeText(getContext(), "removed", Toast.LENGTH_SHORT).show();
     }
 
-    public void update(){
+    public static ArrayList<String> getCart(){
+        return s1;
+    }
 
+    public static ArrayList<Integer> getQty(){
+        return s2;
+    }
+
+    public void update(){
+        //refresh here
     }
 }

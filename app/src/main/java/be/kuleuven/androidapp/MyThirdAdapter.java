@@ -46,6 +46,7 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText1.setText(data1.get(position));
         holder.myText2.setText(data2.get(position) + "x");
+        System.out.println(images);
         holder.myImage.setImageBitmap(images.get(position));
         holder.myPrice.setText("€" + String.format("%.2f", prices.get(position)));
         holder.myBtn.callOnClick();
