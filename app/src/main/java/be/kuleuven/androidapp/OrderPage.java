@@ -44,8 +44,7 @@ public class OrderPage extends AppCompatActivity {
         timeButton = (Button) findViewById(R.id.btnTime);
         dateButton.setText(getTodaysDate());
         totalPrice = findViewById(R.id.txtTotalPrice);
-        discount = 0f;
-        queryTotalPrice();
+        discount = 0d;
         checkBirthday();
     }
 
@@ -246,6 +245,7 @@ public class OrderPage extends AppCompatActivity {
                             int currYear = currentYear();
                             discount = (currYear - birthYearInt) / 100d;
                         }
+                        queryTotalPrice();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
