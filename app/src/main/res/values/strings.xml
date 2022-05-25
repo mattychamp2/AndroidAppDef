@@ -35,5 +35,6 @@
     <string name="remove">REMOVE</string>
     <string name="textview4">TextView</string>
     <string name="image2">Image2</string>
+    <string name="bakeryimage">bakeryImage</string>
 
 </resources>

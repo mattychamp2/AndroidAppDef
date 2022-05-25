@@ -82,7 +82,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/storepic" />
+        app:srcCompat="@drawable/storepic"
+        android:contentDescription="@string/bakeryimage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
