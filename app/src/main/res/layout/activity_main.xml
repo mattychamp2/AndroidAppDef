@@ -74,5 +74,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLog" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="271dp"
+        android:layout_height="361dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/storepic" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
