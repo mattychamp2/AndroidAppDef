@@ -2,61 +2,41 @@ package be.kuleuven.androidapp;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-import org.json.JSONArray;
 
 public class Shop extends AppCompatActivity {
 
-    RequestQueue requestQueue;
-    Button btnOrder;
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-
         openFragment(FirstFragment.newInstance());
-
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        openFragment(FirstFragment.newInstance());
-                        return true;
-                    case R.id.profile:
-                        openFragment(SecondFragment.newInstance());
-                        return true;
-                    case R.id.settings:
-                        openFragment(ThirdFragment.newInstance());
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    openFragment(FirstFragment.newInstance());
+                    return true;
+                case R.id.profile:
+                    openFragment(SecondFragment.newInstance());
+                    return true;
+                case R.id.settings:
+                    openFragment(ThirdFragment.newInstance());
+                    return true;
             }
+            return false;
         });
     }
 
@@ -69,12 +49,12 @@ public class Shop extends AppCompatActivity {
         transaction.commit(); // commit() performs the action
     }
 
-    public void setBtnOrder(View caller){
+    public void setBtnOrder(View caller) {
         Intent intent = new Intent(this, OrderPage.class);
         startActivity(intent);
     }
 
-    public void btnLogOut(View caller){
+    public void btnLogOut(View caller) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

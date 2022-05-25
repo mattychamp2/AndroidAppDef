@@ -3,7 +3,6 @@ package be.kuleuven.androidapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,9 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
     ArrayList<Double> data2;
     ArrayList<Bitmap> images;
     Context context;
-    private OnNoteListener mOnNoteListener;
+    private final OnNoteListener mOnNoteListener;
 
-    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, ArrayList<Double> s2, OnNoteListener onNoteListener){
+    public MySecondAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, ArrayList<Double> s2, OnNoteListener onNoteListener) {
         context = ct;
         data1 = s1;
         data2 = s2;
@@ -54,8 +53,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
         return data1.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myText, myPrice;
         ImageView myImage;
         Button myButton;
@@ -77,11 +75,7 @@ public class MySecondAdapter extends RecyclerView.Adapter<MySecondAdapter.MyView
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(int position);
-    }
-
-    public void getPos(){
-
     }
 }

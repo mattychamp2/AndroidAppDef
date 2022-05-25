@@ -1,5 +1,6 @@
 package be.kuleuven.androidapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     ArrayList<String> data1;
     ArrayList<Bitmap> images;
     Context context;
-    private OnNoteListener mOnNoteListener;
+    private final OnNoteListener mOnNoteListener;
 
-    public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, OnNoteListener onNoteListener){
+    public MyAdapter(Context ct, ArrayList<String> s1, ArrayList<Bitmap> img, OnNoteListener onNoteListener) {
         context = ct;
         data1 = s1;
         images = img;
@@ -31,9 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        //View view = inflater.inflate(R.layout.my_row, parent, false);
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.my_row, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_row, null);
         return new MyViewHolder(view, mOnNoteListener);
     }
 
@@ -48,10 +46,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return data1.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myText_1;
         ImageView myImage;
         OnNoteListener onNoteListener;
+
         public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             myText_1 = itemView.findViewById(R.id.item_txt);
@@ -66,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(int position);
     }
 }

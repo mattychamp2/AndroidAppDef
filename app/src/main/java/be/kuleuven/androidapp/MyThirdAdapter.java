@@ -17,14 +17,14 @@ import java.util.ArrayList;
 
 public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHolder> {
 
-    ArrayList<String> data1;
-    ArrayList<Integer> data2;
-    ArrayList<Bitmap> images;
-    ArrayList<Double> prices;
-    Context context;
-    private OnNoteListener mOnNoteListener;
+    private final ArrayList<String> data1;
+    private final ArrayList<Integer> data2;
+    private final ArrayList<Bitmap> images;
+    private final ArrayList<Double> prices;
+    private final Context context;
+    private final OnNoteListener mOnNoteListener;
 
-    public MyThirdAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> s2, ArrayList<Bitmap> img, ArrayList<Double> pric, OnNoteListener onNoteListener){
+    public MyThirdAdapter(Context ct, ArrayList<String> s1, ArrayList<Integer> s2, ArrayList<Bitmap> img, ArrayList<Double> pric, OnNoteListener onNoteListener) {
         context = ct;
         data1 = s1;
         data2 = s2;
@@ -46,7 +46,6 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.myText1.setText(data1.get(position));
         holder.myText2.setText(data2.get(position) + "x");
-        System.out.println(images);
         holder.myImage.setImageBitmap(images.get(position));
         holder.myPrice.setText("€" + String.format("%.2f", prices.get(position)));
         holder.myBtn.callOnClick();
@@ -57,7 +56,7 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
         return data1.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView myText1, myText2, myPrice;
         ImageView myImage;
@@ -81,7 +80,7 @@ public class MyThirdAdapter extends RecyclerView.Adapter<MyThirdAdapter.MyViewHo
         }
     }
 
-    public interface OnNoteListener{
+    public interface OnNoteListener {
         void onNoteClick(int position);
     }
 }
