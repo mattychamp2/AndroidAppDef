@@ -175,6 +175,7 @@ public class CreateAccount extends AppCompatActivity {
                             if (!sameUn){
                                 checkRequirements(v);
                                 if (checkRequirements(v)){
+                                    MainActivity.loggedUser = un;
                                     createAccount(v);
                                 }
                             }

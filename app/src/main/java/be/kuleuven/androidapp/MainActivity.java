@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private TextView password;
     private RequestQueue requestQueue;
-    private static String loggedUser;
+    public static String loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
