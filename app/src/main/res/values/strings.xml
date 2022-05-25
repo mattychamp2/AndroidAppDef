@@ -1,6 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BakeYourself</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create_your_account_by_filling_in_the_blanks">Create your account by filling in the blanks:</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
@@ -36,23 +35,5 @@
     <string name="remove">REMOVE</string>
     <string name="textview4">TextView</string>
     <string name="image2">Image2</string>
-
-    <string-array name="items">
-        <item>Brood</item>
-        <item>Brood</item>
-        <item>Brood</item>
-        <item>Brood</item>
-        <item>Brood</item>
-        <item>Brood</item>
-    </string-array>
-
-    <string-array name="description">
-        <item>Dit is brood</item>
-        <item>Dit is brood</item>
-        <item>Dit is brood</item>
-        <item>Dit is brood</item>
-        <item>Dit is brood</item>
-        <item>Dit is brood</item>
-    </string-array>
 
 </resources>
