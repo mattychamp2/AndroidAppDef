@@ -9,7 +9,7 @@
     <string name="create_account">Create account</string>
     <string name="jan_01_2020">JAN 01 2020</string>
     <string name="pick_a_password_with_at_least_7_characters_which_contains_letters_numbers_and_non_letters">Pick a password with at least 7 characters which contains letters, numbers and non-letters:</string>
-    <string name="select_your_birthdate">Select your birthdate</string>
+    <string name="select_your_birthdate">Select your birthdate:</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="log_in_as_guest">Log in as guest</string>
