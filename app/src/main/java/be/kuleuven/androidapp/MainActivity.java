@@ -65,11 +65,6 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
-    public void onBtnLog_Clicked(View caller) {
-        Intent intent = new Intent(this, Shop.class);
-        startActivity(intent);
-    }
-
     public void createAccBtn(View caller) {
         Intent intent = new Intent(this, CreateAccount.class);
         startActivity(intent);
