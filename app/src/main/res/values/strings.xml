@@ -1,6 +1,41 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BakeYourself</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_your_account_by_filling_in_the_blanks">Create your account by filling in the blanks:</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="choose_a_username">Choose a username</string>
+    <string name="pick_a_password">Pick a password</string>
+    <string name="repeat_your_password">Repeat your password</string>
+    <string name="create_account">Create account</string>
+    <string name="jan_01_2020">JAN 01 2020</string>
+    <string name="pick_a_password_with_at_least_7_characters_which_contains_letters_numbers_and_non_letters">Pick a password with at least 7 characters which contains letters, numbers and non-letters:</string>
+    <string name="select_your_birthdate">Select your birthdate</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in_as_guest">Log in as guest</string>
+    <string name="log_in">Log in</string>
+    <string name="create_account1">Create account</string>
+    <string name="select_time">Select Time</string>
+    <string name="price_here">Price here</string>
+    <string name="jan_01_2022">JAN 01 2022</string>
+    <string name="when_would_you_like_to_pick_up_your_order">When would you like to pick up your order?</string>
+    <string name="place_order">Place Order</string>
+    <string name="order">ORDER</string>
+    <string name="you_are_currently_logged_in_as">You are currently logged in as:</string>
+    <string name="textview">TextView</string>
+    <string name="logout">LOGOUT</string>
+    <string name="image">Image</string>
+    <string name="title">Title</string>
+    <string name="textview1">TextView</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="price">Price</string>
+    <string name="image1" tools:ignore="Typos">Image1</string>
+    <string name="textview2">TextView</string>
+    <string name="textview3">TextView</string>
+    <string name="remove">REMOVE</string>
+    <string name="textview4">TextView</string>
+    <string name="image2">Image2</string>
 
     <string-array name="items">
         <item>Brood</item>

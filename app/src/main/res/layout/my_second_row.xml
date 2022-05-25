@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:fontFamily="@font/roboto"
-                android:text="TextView"
+                android:text="@string/textview1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgArticle"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,6 +40,7 @@
                 android:layout_width="101dp"
                 android:layout_height="78dp"
                 android:layout_marginStart="10dp"
+                android:contentDescription="@string/image1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,8 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
-                android:text="ADD TO CART"
-                android:textSize="10sp"
+                android:text="@string/add_to_cart"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +63,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_light_italic"
-                android:text="Price"
+                android:text="@string/price"
                 app:layout_constraintStart_toStartOf="@+id/txtArticle"
                 app:layout_constraintTop_toBottomOf="@+id/txtArticle" />
 

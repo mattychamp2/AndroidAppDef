@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/shopFragment"
-        android:name="be.kuleuven.androidapp.ShopFragment"
+        android:name="be.kuleuven.androidapp.FirstFragment"
         android:label="fragment_shop"
-        tools:layout="@layout/fragment_shop" />
+        tools:layout="@layout/fragment_first" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="be.kuleuven.androidapp.CartFragment"
+        android:name="be.kuleuven.androidapp.SecondFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_second" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="be.kuleuven.androidapp.SettingsFragment"
+        android:name="be.kuleuven.androidapp.ThirdFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_third" />
 </navigation>

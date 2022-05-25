@@ -12,7 +12,7 @@
         android:layout_height="38dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="40dp"
-        android:text="Create your account by filling in the blanks:"
+        android:text="@string/create_your_account_by_filling_in_the_blanks"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,9 @@
         android:layout_height="46dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="13dp"
-        android:hint="First name"
+        android:autofillHints="Firstname"
+        android:hint="@string/first_name"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDescription" />
 
@@ -33,7 +35,9 @@
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
-        android:hint="Last name"
+        android:autofillHints="LastName"
+        android:hint="@string/last_name"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
@@ -43,7 +47,9 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:hint="Choose a username"
+        android:autofillHints="UserName"
+        android:hint="@string/choose_a_username"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lastName" />
 
@@ -53,7 +59,8 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:hint="Pick a password"
+        android:autofillHints="Password"
+        android:hint="@string/pick_a_password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwReq" />
@@ -64,7 +71,8 @@
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:hint="Repeat your password"
+        android:autofillHints="Password"
+        android:hint="@string/repeat_your_password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
@@ -76,7 +84,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="20dp"
         android:onClick="existingUsername"
-        android:text="Create account"
+        android:text="@string/create_account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
@@ -88,7 +96,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:onClick="openDatePicker"
-        android:text="JAN 01 2020"
+        android:text="@string/jan_01_2020"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +108,7 @@
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Pick a password with at least 7 characters which contains letters, numbers and non-letters:"
+        android:text="@string/pick_a_password_with_at_least_7_characters_which_contains_letters_numbers_and_non_letters"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
@@ -110,7 +118,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:hint="Select your birthdate"
+        android:hint="@string/select_your_birthdate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password2" />
 
