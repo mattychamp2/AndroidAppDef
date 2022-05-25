@@ -35,8 +35,7 @@ public class OrderPage extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private TextView totalPrice;
     private RequestQueue requestQueue;
-    private String itemList;
-    private static String priceToPass;
+    private String priceToPass;
     private boolean birthday;
     private double discount;
 
@@ -56,7 +55,7 @@ public class OrderPage extends AppCompatActivity {
         //queryTotalPrice();
     }
 
-    private void queryTotalPrice() {
+    private void queryTotalPrice(View v) {
         requestQueue = Volley.newRequestQueue(this);
         String requestURL = "https://studev.groept.be/api/a21pt115/cartValue";
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
@@ -78,8 +77,10 @@ public class OrderPage extends AppCompatActivity {
                                 }
 
                                 priceToPass = String.format("%.2f", priceSum);
+                                System.out.println(priceToPass);
                                 totalPrice.setText("€" + String.format("%.2f", priceSum) + " total price");
                                 index++;
+                                insertOrder(v);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 finished = true;
@@ -235,6 +236,7 @@ public class OrderPage extends AppCompatActivity {
         }
         else{
             String urlToPass = "https://studev.groept.be/api/a21pt115/pushOrder/" + dateToPass + "/" + hourToPass + "/" + orderToPass + "/" + priceToPass + "/" + userToPass;
+            System.out.println(urlToPass);
             requestQueue = Volley.newRequestQueue(this);
             JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, urlToPass, null,
                     //TODO: Possibly make this a lambda expression if we still understand what happens.
@@ -333,8 +335,7 @@ public class OrderPage extends AppCompatActivity {
 
         System.out.println("verjaardag: " + birthday);
         System.out.println(discount);
-        queryTotalPrice();
-        insertOrder(v);
+        queryTotalPrice(v);
     }
 
 }
